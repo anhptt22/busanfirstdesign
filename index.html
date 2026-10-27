@@ -11,8 +11,6 @@
     --primary:#1f8a4c;
     --primary-dark:#166b3a;
     --primary-soft:#eaf5ee;
-    --hero1:#a9dcb9,#3f9e66 45%,#0f3d25;
-    --hero2:#d6eadc,#5c9a73 50%,#12301f;
     --ink:#111;
     --gray:#767676;
     --line:#e5e5e5;
@@ -75,13 +73,12 @@
   .slide.active{opacity:1}
   .slide .bg{position:absolute;inset:0;transform:scale(1.12);transition:transform 7s linear}
   .slide.active .bg{transform:scale(1)}
-  .slide:nth-child(1) .bg{background:
-      radial-gradient(circle at 70% 30%,rgba(255,255,255,.55),transparent 45%),
-      linear-gradient(160deg,var(--hero1))}
-  .slide:nth-child(2) .bg{background:
-      radial-gradient(circle at 25% 35%,rgba(255,255,255,.5),transparent 40%),
-      linear-gradient(160deg,var(--hero2))}
-  .slide::after{content:"";position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,0) 40%,rgba(0,0,0,.45))}
+  .slide .bg{background:#222 center/cover no-repeat}
+  .slide:nth-child(1) .bg{background-image:url(img/hero-1.webp)}
+  .slide:nth-child(2) .bg{background-image:url(img/hero-2.jpg)}
+  .slide:nth-child(3) .bg{background-image:url(img/hero-3.webp)}
+  /* lớp tối góc dưới trái để chữ trắng đọc được trên ảnh sáng */
+  .slide::after{content:"";position:absolute;inset:0;background:linear-gradient(to top right,rgba(0,0,0,.6),rgba(0,0,0,.15) 55%,rgba(0,0,0,0))}
   .hero-text{position:absolute;left:8%;bottom:16%;z-index:2}
   .hero-text h2{font-size:clamp(36px,5vw,72px);font-weight:800;line-height:1.25;letter-spacing:-2px}
   .hero-text h2 span{display:block;overflow:hidden}
@@ -265,11 +262,15 @@
   <section class="hero" id="hero" style="padding:0">
     <div class="slide active">
       <div class="bg"></div>
-      <div class="hero-text"><h2><span><i>일상의 즐거움을</i></span><span><i>함께 만드는 브랜드</i></span></h2></div>
+      <div class="hero-text"><h2><span><i>브랜드의 첫인상을</i></span><span><i>디자인합니다</i></span></h2></div>
     </div>
     <div class="slide">
       <div class="bg"></div>
-      <div class="hero-text"><h2><span><i>더 건강한 내일을</i></span><span><i>세계와 나눕니다</i></span></h2></div>
+      <div class="hero-text"><h2><span><i>기획부터 인쇄까지</i></span><span><i>한 번에 완성합니다</i></span></h2></div>
+    </div>
+    <div class="slide">
+      <div class="bg"></div>
+      <div class="hero-text"><h2><span><i>읽히는 디자인으로</i></span><span><i>성과를 만듭니다</i></span></h2></div>
     </div>
     <div class="hero-ctrl">
       <div class="pager" id="pager"></div>
