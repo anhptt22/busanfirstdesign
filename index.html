@@ -77,7 +77,10 @@
   /* viền ảnh mờ dần để hòa vào nền mờ, không lộ đường ranh */
   .slide .pic img{max-width:100%;max-height:100%;
     -webkit-mask-image:linear-gradient(to right,transparent,#000 6%,#000 94%,transparent),linear-gradient(to bottom,transparent,#000 6%,#000 94%,transparent);
-    -webkit-mask-composite:source-in;mask-composite:intersect}
+    -webkit-mask-composite:source-in;mask-composite:intersect;
+    transform:scale(1.12);transition:transform 7s linear}
+  /* ảnh to dần rồi thu về kích thước thật trong 7 giây (giống bing) */
+  .slide.active .pic img{transform:scale(1)}
   /* lớp tối góc dưới trái để chữ trắng đọc được trên ảnh sáng */
   .slide::after{content:"";position:absolute;inset:0;background:linear-gradient(to top right,rgba(0,0,0,.6),rgba(0,0,0,.15) 55%,rgba(0,0,0,0))}
   .hero-text{position:absolute;left:8%;bottom:16%;z-index:2;word-break:keep-all}
@@ -336,7 +339,7 @@
 <main>
   <!-- Hero -->
   <section class="hero" id="hero" style="padding:0">
-    <div class="slide active" style="--bgc:#2c6484">
+    <div class="slide" style="--bgc:#2c6484">
       <div class="bg"></div><div class="pic"><img src="img/hero-1.webp" alt=""></div>
       <div class="hero-text">
         <h2><span><i>처음부터 다른 디자인,</i></span><span><i><em>FIRST DESIGN</em></i></span></h2>
@@ -554,6 +557,9 @@ function goHero(n){
   clearTimeout(heroTimer); heroTimer = setTimeout(() => goHero(hi + 1), HERO_DUR);
 }
 pages.forEach(b => b.addEventListener('click', () => goHero(+b.dataset.i)));
+// tính kiểu ban đầu (ảnh scale 1.12) trước khi bật slide đầu, để ảnh đầu tiên cũng có hiệu ứng zoom
+void slides[0].querySelector(".pic img").offsetWidth;
+getComputedStyle(slides[0].querySelector(".pic img")).transform;
 goHero(0);
 
 /* ---------- Business slider ---------- */
