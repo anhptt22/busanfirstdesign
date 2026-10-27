@@ -116,6 +116,46 @@
   .reveal{opacity:0;transform:translateY(50px);transition:opacity .9s ease,transform .9s ease}
   .reveal.in{opacity:1;transform:none}
 
+  /* ---------- About (회사소개) ---------- */
+  .about{position:relative;overflow:hidden;background:linear-gradient(180deg,#fbfdfb 0%,#eaf5ee 100%);padding:140px 0 160px}
+  .about-inner{position:relative;z-index:2}
+  .about-eyebrow{position:relative;display:inline-block;font-size:20px;font-weight:700;color:var(--primary);letter-spacing:-.3px}
+  .about-eyebrow::after{content:"";position:absolute;right:-9px;top:2px;width:6px;height:6px;border-radius:50%;background:var(--primary)}
+  .about-title{margin-top:34px;font-size:clamp(30px,3.6vw,56px);font-weight:800;line-height:1.38;letter-spacing:-2px;word-break:keep-all}
+  .about-title b{color:var(--primary)}
+  /* chữ hiện lần lượt từng ký tự (kiểu miracell) */
+  .about-title .w{display:inline-block;overflow:hidden;vertical-align:top}
+  .about-title .ch{display:inline-block;transform:translateY(105%);opacity:0;transition:transform .9s cubic-bezier(.2,.7,.2,1),opacity .9s}
+  .about.in .about-title .ch{transform:none;opacity:1}
+  .about-desc{margin-top:28px;max-width:560px;font-size:18px;line-height:1.7;color:#555}
+  .about-stats{width:min(560px,100%);margin:120px 0 0 auto}
+  .about-stats li{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;padding:30px 0 22px;border-bottom:1px solid #111}
+  .about-stats dt{font-size:21px;font-weight:700}
+  .about-stats dd{margin-top:8px;font-size:14px;color:#777}
+  .odo{display:flex;align-items:flex-end;font-size:76px;font-weight:700;line-height:1;letter-spacing:-2px;white-space:nowrap}
+  .odo .col{display:inline-block;height:1em;overflow:hidden}
+  .odo .col span{display:block;transition:transform 2.2s cubic-bezier(.25,.8,.25,1)}
+  .odo .col span i{display:block;height:1em;font-style:normal}
+  .odo .sfx{font-size:.42em;margin:0 0 .12em 4px;color:var(--primary);letter-spacing:0}
+  /* quả cầu xanh = chấm xanh trong logo first */
+  .orb-wrap{position:absolute;z-index:1;will-change:transform}
+  .about-body{position:relative;display:flow-root}
+  .orb-wrap.big{left:26%;top:150px;width:min(340px,28vw)}
+  .orb-wrap.small{left:4%;bottom:70px;width:150px;filter:blur(5px);opacity:.55}
+  .orb{display:block;aspect-ratio:1;border-radius:50%;animation:orbFloat 6s ease-in-out infinite;
+    background:
+      radial-gradient(circle at 32% 26%,rgba(255,255,255,.95) 0 3%,rgba(255,255,255,.45) 9%,transparent 24%),
+      radial-gradient(circle at 70% 78%,rgba(8,50,26,.5),transparent 55%),
+      radial-gradient(circle at 42% 38%,#8fdca8,#38a862 42%,#1a7a43 75%,#0e4a28);
+    box-shadow:0 70px 90px -40px rgba(22,107,58,.45),inset -24px -34px 60px rgba(0,0,0,.22),inset 12px 16px 40px rgba(255,255,255,.35)}
+  .orb-wrap.small .orb{animation-duration:8s;animation-delay:-2s}
+  @keyframes orbFloat{50%{transform:translateY(-22px)}}
+  /* chữ lớn chạy ngang ở nền */
+  .about-marquee{position:absolute;left:0;right:0;bottom:-30px;z-index:0;overflow:hidden;pointer-events:none}
+  .about-marquee .track{display:flex;width:max-content;animation:marquee 45s linear infinite}
+  .about-marquee span{font-size:170px;font-weight:800;letter-spacing:-4px;color:#fff;white-space:nowrap;padding-right:80px;line-height:1}
+  @keyframes marquee{to{transform:translateX(-50%)}}
+
   /* ---------- Business ---------- */
   .biz-slider{overflow:hidden;padding-left:max(40px,calc((100vw - var(--wrap))/2 + 40px))}
   .biz-track{display:flex;gap:24px;transition:transform .6s cubic-bezier(.2,.7,.2,1);cursor:grab}
@@ -238,6 +278,19 @@
     .contact-box .tel{font-size:32px}
     .top-btn{right:16px;bottom:16px}
     .biz-card .txt strong{font-size:24px}
+    .about{padding:80px 0 110px}
+    .about-eyebrow{font-size:16px}
+    .about-title{margin-top:20px;font-size:26px;letter-spacing:-1px}
+    .about-title br{display:none}
+    .about-desc{font-size:15px}
+    .about-stats{margin-top:230px}
+    .about-stats li{padding:22px 0 16px}
+    .about-stats dt{font-size:17px}
+    .about-stats dd{font-size:12px}
+    .odo{font-size:46px;letter-spacing:-1px}
+    .orb-wrap.big{left:auto;right:0;top:40px;width:160px}
+    .orb-wrap.small{width:90px}
+    .about-marquee span{font-size:90px}
   }
 </style>
 </head>
@@ -296,6 +349,26 @@
       <a href="#business" class="scroll-down" aria-label="아래로">
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8 2v12M3 9l5 5 5-5"/></svg>
       </a>
+    </div>
+  </section>
+
+  <!-- 회사소개 -->
+  <section class="about" id="about">
+    <div class="about-marquee" aria-hidden="true"><div class="track"><span>DESIGN × MARKETING · FIRST DESIGN</span><span>DESIGN × MARKETING · FIRST DESIGN</span></div></div>
+    <div class="orb-wrap small" data-speed="-.08"><i class="orb"></i></div>
+    <div class="wrap about-inner">
+      <strong class="about-eyebrow">About Us</strong>
+      <h2 class="about-title split">퍼스트디자인은 각 분야의 전문가가 모여 <br>기업의 생각을 디자인으로 풀어내고 <br><b>성과까지 함께 고민하는 디자인 파트너입니다.</b></h2>
+      <p class="about-desc reveal">브랜딩부터 인쇄물, 홈페이지, 촬영, 마케팅까지. 전략적인 기획과 체계적인 진행 과정으로 결과물의 완성도를 끝까지 책임집니다.</p>
+      <div class="about-body">
+        <div class="orb-wrap big" data-speed=".12"><i class="orb"></i></div>
+        <ul class="about-stats">
+          <li><dl><dt>디자인 경력</dt><dd>12년 넘게 쌓아온 실무 노하우</dd></dl><div class="odo" data-num="12" data-sfx="년+"></div></li>
+          <li><dl><dt>완료 프로젝트</dt><dd>다양한 업종의 기업과 함께한 결과물</dd></dl><div class="odo" data-num="3,200" data-sfx="+"></div></li>
+          <li><dl><dt>재의뢰·추천율</dt><dd>다시 맡기거나 주변에 소개해 주신 고객</dd></dl><div class="odo" data-num="98" data-sfx="%"></div></li>
+          <li><dl><dt>정부지원사업 수행</dt><dd>바우처·지원사업과 연계한 디자인 프로젝트</dd></dl><div class="odo" data-num="400" data-sfx="+"></div></li>
+        </ul>
+      </div>
     </div>
   </section>
 
@@ -513,6 +586,55 @@ tabs.addEventListener('click', e => {
   [...tabs.children].forEach(t => t.classList.toggle('active', t === e.target));
   [...pins.children].forEach(p => p.classList.toggle('active', p.dataset.i === i));
 });
+
+/* ---------- About: chữ từng ký tự + số quay + parallax ---------- */
+const about = document.getElementById('about');
+document.querySelectorAll('.split').forEach(el => {
+  let k = 0;
+  const walk = node => [...node.childNodes].forEach(n => {
+    if (n.nodeType === 3) {
+      const frag = document.createDocumentFragment();
+      n.textContent.split(/(\s+)/).forEach(part => {
+        if (!part) return;
+        if (/^\s+$/.test(part)) { frag.append(' '); return; }
+        const w = document.createElement('span'); w.className = 'w';
+        [...part].forEach(c => {
+          const ch = document.createElement('span'); ch.className = 'ch'; ch.textContent = c;
+          ch.style.transitionDelay = (k++ * .02) + 's'; w.append(ch);
+        });
+        frag.append(w);
+      });
+      n.replaceWith(frag);
+    } else if (n.nodeType === 1 && n.tagName !== 'BR') walk(n);
+  });
+  walk(el);
+});
+document.querySelectorAll('.odo').forEach(el => {
+  let col = 0;
+  el.innerHTML = [...el.dataset.num].map(c => {
+    if (!/\d/.test(c)) return `<span>${c}</span>`;
+    const up = col++ % 2 === 0;   // cột chẵn quay lên, cột lẻ quay xuống
+    const digits = Array.from({length:20}, (_, i) => `<i>${i % 10}</i>`).join('');
+    return `<span class="col"><span data-from="${up ? 0 : 19}" data-to="${up ? 10 + +c : +c}" style="transform:translateY(-${(up ? 0 : 19) * 5}%)">${digits}</span></span>`;
+  }).join('') + `<span class="sfx">${el.dataset.sfx}</span>`;
+});
+const rollOdo = li => li.querySelectorAll('.col > span').forEach((s, i) => {
+  s.style.transitionDelay = (i * .12) + 's';
+  s.style.transform = `translateY(-${s.dataset.to * 5}%)`;
+});
+new IntersectionObserver((entries, ob) => entries.forEach(en => {
+  if (en.isIntersecting) { about.classList.add('in'); ob.unobserve(about); }
+}), {threshold:.25}).observe(about);
+const odoIO = new IntersectionObserver((entries, ob) => entries.forEach(en => {
+  if (en.isIntersecting) { rollOdo(en.target); ob.unobserve(en.target); }
+}), {threshold:.6});
+document.querySelectorAll('.about-stats li').forEach(li => odoIO.observe(li));
+const orbs = [...document.querySelectorAll('.orb-wrap')];
+addEventListener('scroll', () => {
+  const r = about.getBoundingClientRect();
+  if (r.bottom < 0 || r.top > innerHeight) return;
+  orbs.forEach(o => o.style.transform = `translate3d(0,${r.top * o.dataset.speed}px,0)`);
+}, {passive:true});
 
 /* ---------- Scroll reveal ---------- */
 const io = new IntersectionObserver(entries => entries.forEach(en => {
