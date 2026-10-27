@@ -31,14 +31,10 @@
   .wrap{width:100%;max-width:var(--wrap);margin:0 auto;padding:0 40px}
 
   /* ---------- Header ---------- */
-  .header{position:fixed;inset:0 0 auto;z-index:100;height:var(--header-h);color:#fff;transition:background .3s,color .3s,box-shadow .3s}
-  .header.scrolled,.header.menu-open{background:#fff;color:var(--ink);box-shadow:0 1px 0 var(--line)}
+  .header{position:fixed;inset:0 0 auto;z-index:100;height:var(--header-h);background:#fff;color:var(--ink);box-shadow:0 1px 0 var(--line)}
   .header .wrap{height:100%;display:flex;align-items:center;justify-content:space-between;max-width:none;padding:0 50px}
   .logo{display:flex;align-items:center}
   .logo img{height:38px;width:auto}
-  .logo .logo-dark{display:none}
-  .header.scrolled .logo-dark,.header.menu-open .logo-dark,.sitemap-open .logo-dark{display:block}
-  .header.scrolled .logo-white,.header.menu-open .logo-white,.sitemap-open .logo-white{display:none}
   .gnb{display:flex;height:100%}
   .gnb>li>a{display:flex;align-items:center;height:100%;padding:0 16px;font-size:17px;font-weight:600;white-space:nowrap;position:relative}
   .gnb>li>a::after{content:"";position:absolute;left:16px;right:16px;bottom:0;height:3px;background:var(--primary);transform:scaleX(0);transition:transform .3s}
@@ -72,7 +68,6 @@
   .sitemap-grid h4{font-size:18px;margin-bottom:20px}
   .sitemap-grid li a{display:block;font-size:14px;color:#555;padding:5px 0}
   .sitemap-grid li a:hover{color:var(--primary)}
-  .sitemap-open .header{background:#fff;color:var(--ink)}
 
   /* ---------- Hero ---------- */
   .hero{position:relative;height:100vh;min-height:640px;overflow:hidden;color:#fff;background:#222}
@@ -245,8 +240,7 @@
 <header class="header" id="header">
   <div class="wrap">
     <a href="#" class="logo" aria-label="first">
-      <img src="img/first-logo-white.png" alt="first" class="logo-white">
-      <img src="img/first-logo.png" alt="first" class="logo-dark">
+      <img src="img/first-logo.png" alt="first">
     </a>
     <ul class="gnb" id="gnb"></ul>
     <div class="util">
