@@ -157,16 +157,22 @@
   @keyframes marquee{to{transform:translateX(-50%)}}
 
   /* ---------- Business ---------- */
-  .biz-slider{overflow:hidden;padding-left:max(40px,calc((100vw - var(--wrap))/2 + 40px))}
+  .biz-stage{position:relative;max-width:var(--wrap);margin:0 auto;padding:0 90px}
+  #business .wrap{padding:0 90px}   /* tiêu đề thẳng hàng với mép thẻ */
+  .biz-slider{overflow:hidden;border-radius:30px}
   .biz-track{display:flex;gap:24px;transition:transform .6s cubic-bezier(.2,.7,.2,1);cursor:grab}
-  .biz-card{flex:0 0 min(560px,80vw);aspect-ratio:4/3.2;border-radius:30px;position:relative;overflow:hidden;color:#fff}
+  .biz-card{flex:0 0 calc((100% - 48px)/3);aspect-ratio:4/3.2;border-radius:30px;position:relative;overflow:hidden;color:#fff}
   .biz-card .ph{position:absolute;inset:0;background:#ddd center/cover no-repeat;transition:transform .6s}
   .biz-card:hover .ph{transform:scale(1.06)}
   .biz-card::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.65),rgba(0,0,0,.15) 45%,transparent 65%)}
-  .biz-card .no{position:absolute;left:36px;top:30px;z-index:2;font-size:15px;font-weight:700;letter-spacing:1px;padding:6px 14px;border-radius:20px;background:rgba(0,0,0,.35);backdrop-filter:blur(4px)}
-  .biz-card .txt{position:absolute;left:36px;right:36px;bottom:32px;z-index:2;word-break:keep-all}
-  .biz-card .txt strong{display:block;font-size:30px;font-weight:800}
-  .biz-card .txt span{display:block;margin-top:8px;font-size:16px;opacity:.9}
+  .biz-card .no{position:absolute;left:30px;top:26px;z-index:2;font-size:15px;font-weight:700;letter-spacing:1px;padding:6px 14px;border-radius:20px;background:rgba(0,0,0,.35);backdrop-filter:blur(4px)}
+  .biz-card .txt{position:absolute;left:30px;right:30px;bottom:28px;z-index:2;word-break:keep-all}
+  .biz-card .txt strong{display:block;font-size:26px;font-weight:800}
+  .biz-card .txt span{display:block;margin-top:8px;font-size:15px;opacity:.9}
+  .biz-arrow{position:absolute;top:50%;z-index:3;width:50px;height:50px;margin-top:-25px;border-radius:50%;background:#f2f2f2;color:#777;display:grid;place-items:center;transition:background .25s,color .25s}
+  .biz-arrow:hover{background:var(--primary);color:#fff}
+  .biz-arrow.prev{left:20px}
+  .biz-arrow.next{right:20px}
   .biz-ctrl{display:flex;align-items:center;justify-content:center;gap:16px;margin-top:40px}
   .biz-ctrl .dots{display:flex;gap:6px}
   .biz-ctrl .dots button{width:24px;height:3px;background:#ddd;transition:.3s}
@@ -257,7 +263,9 @@
     .news-list{grid-template-columns:1fr}
     .contact-grid{grid-template-columns:1fr}
     .footer .wrap{grid-template-columns:1fr}
-    .biz-slider{padding-left:20px}
+    .biz-stage{padding:0 76px}
+    #business .wrap{padding:0 76px}
+    .biz-card{flex-basis:calc((100% - 24px)/2)}
     .hero-ctrl{right:20px;bottom:30px}
   }
   @media (max-width:640px){
@@ -273,7 +281,12 @@
     .contact-box{padding:32px 24px}
     .contact-box .tel{font-size:32px}
     .top-btn{right:16px;bottom:16px}
-    .biz-card{aspect-ratio:4/4.4}
+    .biz-stage{padding:0 20px}
+    #business .wrap{padding:0 20px}
+    .biz-card{flex-basis:100%;aspect-ratio:4/4.4}
+    .biz-arrow{width:38px;height:38px;margin-top:-19px;background:rgba(255,255,255,.85);color:#333}
+    .biz-arrow.prev{left:28px}
+    .biz-arrow.next{right:28px}
     .biz-card .txt{left:20px;right:20px;bottom:20px}
     .biz-card .txt strong{font-size:21px}
     .biz-card .txt span{font-size:13px;margin-top:6px}
@@ -380,14 +393,18 @@
         <a href="#" class="more">자세히 보기 →</a>
       </div>
     </div>
-    <div class="biz-slider reveal">
-      <div class="biz-track" id="bizTrack">
-        <a href="#" class="biz-card"><div class="ph" style="background-image:url(img/biz-1.jpg)"></div><span class="no">01</span><div class="txt"><strong>로고 · 브랜딩</strong><span>브랜드가 지향하는 가치를 한눈에 알아볼 수 있는 형태로 만듭니다.</span></div></a>
-        <a href="#" class="biz-card"><div class="ph" style="background-image:url(img/biz-2.jpg)"></div><span class="no">02</span><div class="txt"><strong>카탈로그 · 브로슈어</strong><span>회사와 제품의 강점을 읽기 쉬운 흐름으로 정리합니다.</span></div></a>
-        <a href="#" class="biz-card"><div class="ph" style="background-image:url(img/biz-3.jpg)"></div><span class="no">03</span><div class="txt"><strong>팜플렛 · 리플렛</strong><span>꼭 전해야 할 메시지만 골라 간결하게 구성합니다.</span></div></a>
-        <a href="#" class="biz-card"><div class="ph" style="background-image:url(img/biz-4.jpg?v=2)"></div><span class="no">04</span><div class="txt"><strong>포스터</strong><span>멀리서도 눈에 띄는 한 장의 메시지를 디자인합니다.</span></div></a>
-        <a href="#" class="biz-card"><div class="ph" style="background-image:url(img/biz-5.jpg)"></div><span class="no">05</span><div class="txt"><strong>제품 촬영</strong><span>자체 스튜디오에서 제품의 매력이 가장 잘 보이는 장면을 담습니다.</span></div></a>
-        <a href="#" class="biz-card"><div class="ph" style="background-image:url(img/biz-6.jpg)"></div><span class="no">06</span><div class="txt"><strong>마케팅</strong><span>완성한 디자인이 실제 고객에게 닿도록 홍보까지 함께합니다.</span></div></a>
+    <div class="biz-stage reveal">
+      <button class="biz-arrow prev" id="bizPrev" aria-label="이전"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 5l-7 7 7 7"/></svg></button>
+      <button class="biz-arrow next" id="bizNext" aria-label="다음"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5l7 7-7 7"/></svg></button>
+      <div class="biz-slider">
+        <div class="biz-track" id="bizTrack">
+          <a href="#" class="biz-card"><div class="ph" style="background-image:url(img/biz-1.jpg)"></div><span class="no">01</span><div class="txt"><strong>로고 · 브랜딩</strong><span>브랜드가 지향하는 가치를 한눈에 알아볼 수 있는 형태로 만듭니다.</span></div></a>
+          <a href="#" class="biz-card"><div class="ph" style="background-image:url(img/biz-2.jpg)"></div><span class="no">02</span><div class="txt"><strong>카탈로그 · 브로슈어</strong><span>회사와 제품의 강점을 읽기 쉬운 흐름으로 정리합니다.</span></div></a>
+          <a href="#" class="biz-card"><div class="ph" style="background-image:url(img/biz-3.jpg)"></div><span class="no">03</span><div class="txt"><strong>팜플렛 · 리플렛</strong><span>꼭 전해야 할 메시지만 골라 간결하게 구성합니다.</span></div></a>
+          <a href="#" class="biz-card"><div class="ph" style="background-image:url(img/biz-4.jpg?v=2)"></div><span class="no">04</span><div class="txt"><strong>포스터</strong><span>멀리서도 눈에 띄는 한 장의 메시지를 디자인합니다.</span></div></a>
+          <a href="#" class="biz-card"><div class="ph" style="background-image:url(img/biz-5.jpg)"></div><span class="no">05</span><div class="txt"><strong>제품 촬영</strong><span>자체 스튜디오에서 제품의 매력이 가장 잘 보이는 장면을 담습니다.</span></div></a>
+          <a href="#" class="biz-card"><div class="ph" style="background-image:url(img/biz-6.jpg)"></div><span class="no">06</span><div class="txt"><strong>마케팅</strong><span>완성한 디자인이 실제 고객에게 닿도록 홍보까지 함께합니다.</span></div></a>
+        </div>
       </div>
     </div>
     <div class="biz-ctrl">
@@ -543,17 +560,21 @@ goHero(0);
 const track = document.getElementById('bizTrack');
 const cards = [...track.children];
 const dots = document.getElementById('bizDots');
-dots.innerHTML = cards.map((_, i) => `<button data-i="${i}" aria-label="${i+1}번"></button>`).join('');
 let bi = 0, bizTimer, bizPlaying = true;
 function goBiz(n){
-  const visible = Math.max(1, Math.floor(track.parentElement.clientWidth / (cards[0].offsetWidth + 24)));
+  const step = cards[0].offsetWidth + 24;
+  const visible = Math.max(1, Math.round((track.parentElement.clientWidth + 24) / step));
   const max = Math.max(0, cards.length - visible);
+  if (dots.children.length !== max + 1)   // mỗi chấm = một lượt trượt
+    dots.innerHTML = Array.from({length:max + 1}, (_, i) => `<button data-i="${i}" aria-label="${i+1}번"></button>`).join('');
   bi = n > max ? 0 : n < 0 ? max : n;
-  track.style.transform = `translateX(${-bi * (cards[0].offsetWidth + 24)}px)`;
+  track.style.transform = `translateX(${-bi * step}px)`;
   [...dots.children].forEach((d, i) => d.classList.toggle('active', i === bi));
 }
 function bizAuto(){ clearInterval(bizTimer); if (bizPlaying) bizTimer = setInterval(() => goBiz(bi + 1), 4000); }
 dots.addEventListener('click', e => { if (e.target.dataset.i) { goBiz(+e.target.dataset.i); bizAuto(); } });
+document.getElementById('bizPrev').addEventListener('click', () => { goBiz(bi - 1); bizAuto(); });
+document.getElementById('bizNext').addEventListener('click', () => { goBiz(bi + 1); bizAuto(); });
 const playBtn = document.getElementById('bizPlay');
 playBtn.addEventListener('click', () => {
   bizPlaying = !bizPlaying; playBtn.textContent = bizPlaying ? '❚❚' : '▶'; bizAuto();
