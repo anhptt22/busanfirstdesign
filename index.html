@@ -1,0 +1,514 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>브랜드명 | 기업 홈페이지</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<style>
+  :root{
+    /* màu chủ đạo: Forest Green */
+    --primary:#1f8a4c;
+    --primary-dark:#166b3a;
+    --primary-soft:#eaf5ee;
+    --hero1:#a9dcb9,#3f9e66 45%,#0f3d25;
+    --hero2:#d6eadc,#5c9a73 50%,#12301f;
+    --ink:#111;
+    --gray:#767676;
+    --line:#e5e5e5;
+    --bg-soft:#f6f6f6;
+    --footer:#1b1b1b;
+    --header-h:90px;
+    --wrap:1400px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:Pretendard,sans-serif;color:var(--ink);background:#fff;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  a{color:inherit;text-decoration:none}
+  ul{list-style:none}
+  button{font:inherit;background:none;border:0;cursor:pointer;color:inherit}
+  img{display:block;max-width:100%}
+  .wrap{width:100%;max-width:var(--wrap);margin:0 auto;padding:0 40px}
+
+  /* ---------- Header ---------- */
+  .header{position:fixed;inset:0 0 auto;z-index:100;height:var(--header-h);color:#fff;transition:background .3s,color .3s,box-shadow .3s}
+  .header.scrolled,.header.menu-open{background:#fff;color:var(--ink);box-shadow:0 1px 0 var(--line)}
+  .header .wrap{height:100%;display:flex;align-items:center;justify-content:space-between;max-width:none;padding:0 50px}
+  .logo{display:flex;align-items:center}
+  .logo img{height:38px;width:auto}
+  .logo .logo-dark{display:none}
+  .header.scrolled .logo-dark,.header.menu-open .logo-dark,.sitemap-open .logo-dark{display:block}
+  .header.scrolled .logo-white,.header.menu-open .logo-white,.sitemap-open .logo-white{display:none}
+  .gnb{display:flex;height:100%}
+  .gnb>li>a{display:flex;align-items:center;height:100%;padding:0 16px;font-size:17px;font-weight:600;white-space:nowrap;position:relative}
+  .gnb>li>a::after{content:"";position:absolute;left:16px;right:16px;bottom:0;height:3px;background:var(--primary);transform:scaleX(0);transition:transform .3s}
+  .gnb>li:hover>a::after{transform:scaleX(1)}
+
+  /* mega menu */
+  .mega{position:absolute;top:var(--header-h);left:0;right:0;background:#fff;color:var(--ink);border-top:1px solid var(--line);box-shadow:0 20px 30px rgba(0,0,0,.06);max-height:0;overflow:hidden;transition:max-height .35s ease}
+  .header.menu-open .mega{max-height:420px}
+  .mega-inner{display:flex;justify-content:center;gap:0;padding:36px 0 44px}
+  .mega-col{width:150px;padding:0 16px}
+  .mega-col h4{font-size:15px;margin-bottom:14px;color:var(--primary)}
+  .mega-col li a{display:block;font-size:14px;color:#555;padding:5px 0}
+  .mega-col li a:hover{color:var(--ink);text-decoration:underline}
+  .util{display:flex;align-items:center;gap:22px;margin-left:30px}
+  .btn-inquiry{display:inline-flex;align-items:center;gap:12px;height:52px;padding:0 30px;border-radius:40px;background:linear-gradient(90deg,var(--primary-dark),var(--primary));color:#fff;font-size:17px;font-weight:700;white-space:nowrap;transition:filter .25s,transform .25s}
+  .btn-inquiry:hover{filter:brightness(1.08);transform:translateY(-1px)}
+  .btn-inquiry svg{transition:transform .25s}
+  .btn-inquiry:hover svg{transform:translate(2px,-2px)}
+  .burger{width:28px;height:20px;position:relative}
+  .burger span{position:absolute;left:0;width:100%;height:2px;background:currentColor;transition:.3s}
+  .burger span:nth-child(1){top:0}.burger span:nth-child(2){top:9px}.burger span:nth-child(3){top:18px}
+  .sitemap-open .burger span:nth-child(1){top:9px;transform:rotate(45deg)}
+  .sitemap-open .burger span:nth-child(2){opacity:0}
+  .sitemap-open .burger span:nth-child(3){top:9px;transform:rotate(-45deg)}
+
+  /* full sitemap */
+  .sitemap{position:fixed;inset:0;z-index:99;background:#fff;padding:calc(var(--header-h) + 60px) 0 60px;overflow:auto;opacity:0;visibility:hidden;transition:.35s}
+  .sitemap-open .sitemap{opacity:1;visibility:visible}
+  .sitemap-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:20px}
+  .sitemap-grid .card{border:1px solid var(--line);border-radius:20px;padding:28px 24px;min-height:300px}
+  .sitemap-grid h4{font-size:18px;margin-bottom:20px}
+  .sitemap-grid li a{display:block;font-size:14px;color:#555;padding:5px 0}
+  .sitemap-grid li a:hover{color:var(--primary)}
+  .sitemap-open .header{background:#fff;color:var(--ink)}
+
+  /* ---------- Hero ---------- */
+  .hero{position:relative;height:100vh;min-height:640px;overflow:hidden;color:#fff;background:#222}
+  .slide{position:absolute;inset:0;opacity:0;transition:opacity 1.2s ease}
+  .slide.active{opacity:1}
+  .slide .bg{position:absolute;inset:0;transform:scale(1.12);transition:transform 7s linear}
+  .slide.active .bg{transform:scale(1)}
+  .slide:nth-child(1) .bg{background:
+      radial-gradient(circle at 70% 30%,rgba(255,255,255,.55),transparent 45%),
+      linear-gradient(160deg,var(--hero1))}
+  .slide:nth-child(2) .bg{background:
+      radial-gradient(circle at 25% 35%,rgba(255,255,255,.5),transparent 40%),
+      linear-gradient(160deg,var(--hero2))}
+  .slide::after{content:"";position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,0) 40%,rgba(0,0,0,.45))}
+  .hero-text{position:absolute;left:8%;bottom:16%;z-index:2}
+  .hero-text h2{font-size:clamp(36px,5vw,72px);font-weight:800;line-height:1.25;letter-spacing:-2px}
+  .hero-text h2 span{display:block;overflow:hidden}
+  .hero-text h2 span i{display:block;font-style:normal;transform:translateY(110%);transition:transform 1s cubic-bezier(.2,.7,.2,1)}
+  .slide.active .hero-text h2 span i{transform:none}
+  .slide.active .hero-text h2 span:nth-child(2) i{transition-delay:.15s}
+  .hero-ctrl{position:absolute;right:50px;bottom:60px;z-index:3;display:flex;align-items:center;gap:22px}
+  .pager{display:flex;gap:14px}
+  .pager button{position:relative;width:44px;height:44px;font-size:13px;font-weight:700;color:rgba(255,255,255,.7)}
+  .pager button.active{color:#fff}
+  .pager svg{position:absolute;inset:0;transform:rotate(-90deg);opacity:0}
+  .pager button.active svg{opacity:1}
+  .pager circle{fill:none;stroke-width:2}
+  .pager .track{stroke:rgba(255,255,255,.35)}
+  .pager .bar{stroke:#fff;stroke-dasharray:126;stroke-dashoffset:126}
+  .pager button.active .bar{animation:ring var(--dur,6s) linear forwards}
+  @keyframes ring{to{stroke-dashoffset:0}}
+  .scroll-down{width:46px;height:46px;border-radius:50%;background:#111;display:grid;place-items:center;color:#fff}
+  .scroll-down svg{animation:bob 1.6s ease-in-out infinite}
+  @keyframes bob{50%{transform:translateY(4px)}}
+
+  /* ---------- Section commons ---------- */
+  section{padding:140px 0}
+  .sec-head{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:50px;gap:20px}
+  .sec-title{font-size:clamp(34px,4vw,56px);font-weight:800;letter-spacing:-1.5px}
+  .sec-desc{font-size:20px;color:#444;margin-top:14px}
+  .sec-desc b{color:var(--primary)}
+  .more{display:inline-flex;align-items:center;gap:10px;font-size:15px;font-weight:600;padding:13px 22px;border:1px solid #ccc;border-radius:40px;transition:.25s;white-space:nowrap}
+  .more:hover{background:var(--ink);color:#fff;border-color:var(--ink)}
+  .reveal{opacity:0;transform:translateY(50px);transition:opacity .9s ease,transform .9s ease}
+  .reveal.in{opacity:1;transform:none}
+
+  /* ---------- Business ---------- */
+  .biz-slider{overflow:hidden;padding-left:max(40px,calc((100vw - var(--wrap))/2 + 40px))}
+  .biz-track{display:flex;gap:24px;transition:transform .6s cubic-bezier(.2,.7,.2,1);cursor:grab}
+  .biz-card{flex:0 0 min(560px,80vw);aspect-ratio:4/3.2;border-radius:30px;position:relative;overflow:hidden;color:#fff}
+  .biz-card .ph{position:absolute;inset:0;transition:transform .6s}
+  .biz-card:hover .ph{transform:scale(1.06)}
+  .biz-card:nth-child(1) .ph{background:linear-gradient(135deg,#f6d365,#fda085)}
+  .biz-card:nth-child(2) .ph{background:linear-gradient(135deg,#fff1a8,#f9c74f 60%,#f3a712)}
+  .biz-card:nth-child(3) .ph{background:linear-gradient(135deg,#ffc3d0,#e56b8a 60%,#a4133c)}
+  .biz-card:nth-child(4) .ph{background:linear-gradient(135deg,#caf0f8,#48cae4 60%,#0077b6)}
+  .biz-card .ph::before{content:attr(data-icon);position:absolute;right:8%;top:10%;font-size:120px;opacity:.25;font-weight:900}
+  .biz-card::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.45),transparent 50%)}
+  .biz-card .txt{position:absolute;left:36px;bottom:32px;z-index:2}
+  .biz-card .txt strong{display:block;font-size:30px;font-weight:800}
+  .biz-card .txt span{font-size:16px;opacity:.85}
+  .biz-ctrl{display:flex;align-items:center;justify-content:center;gap:16px;margin-top:40px}
+  .biz-ctrl .dots{display:flex;gap:6px}
+  .biz-ctrl .dots button{width:24px;height:3px;background:#ddd;transition:.3s}
+  .biz-ctrl .dots button.active{width:40px;background:var(--primary)}
+  .biz-ctrl .play{width:22px;height:22px;border:1px solid #bbb;border-radius:50%;display:grid;place-items:center;font-size:8px;color:#888}
+
+  /* ---------- Global ---------- */
+  .global{text-align:center;background:linear-gradient(#fff,var(--primary-soft))}
+  .global .sec-head{justify-content:flex-start}
+  .map{position:relative;max-width:1200px;margin:50px auto 0;aspect-ratio:2/1;
+    background-image:radial-gradient(circle,#cfcfcf 1.4px,transparent 1.6px);background-size:12px 12px;
+    -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 100'%3E%3Cpath d='M18 18c10-6 28-8 40-2 6 4 4 12-2 16-4 3-6 8-2 12 4 3 2 10-4 10-6 1-10 6-8 12 1 6-4 8-8 4-6-6-10-16-14-24-4-8-10-20-2-28zM50 58c6-2 12 2 14 8 2 8-2 16-6 22-2 4-8 3-8-2-1-8-6-14-4-22 1-3 2-5 4-6zM86 16c8-4 18-4 24 0 4 3 2 8-2 10-6 2-10 6-8 10 2 3-2 6-6 4-6-4-14-6-14-14 0-4 2-8 6-10zM92 44c8-3 16 0 20 6 4 8 2 18-2 26-3 6-10 6-12 0-3-8-10-14-10-22 0-4 2-8 4-10zM112 14c18-6 42-6 58 2 8 4 10 12 4 18-4 4-2 10 2 14 4 5-2 10-8 8-8-2-14 2-20 0-6-2-12 2-18 0-8-4-10-12-14-18-4-8-10-18-4-24zM156 66c8-2 16 2 18 8 1 6-4 10-10 10-6 0-12-4-12-10 0-4 2-7 4-8z' fill='%23000'/%3E%3C/svg%3E") center/100% 100% no-repeat;
+            mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 100'%3E%3Cpath d='M18 18c10-6 28-8 40-2 6 4 4 12-2 16-4 3-6 8-2 12 4 3 2 10-4 10-6 1-10 6-8 12 1 6-4 8-8 4-6-6-10-16-14-24-4-8-10-20-2-28zM50 58c6-2 12 2 14 8 2 8-2 16-6 22-2 4-8 3-8-2-1-8-6-14-4-22 1-3 2-5 4-6zM86 16c8-4 18-4 24 0 4 3 2 8-2 10-6 2-10 6-8 10 2 3-2 6-6 4-6-4-14-6-14-14 0-4 2-8 6-10zM92 44c8-3 16 0 20 6 4 8 2 18-2 26-3 6-10 6-12 0-3-8-10-14-10-22 0-4 2-8 4-10zM112 14c18-6 42-6 58 2 8 4 10 12 4 18-4 4-2 10 2 14 4 5-2 10-8 8-8-2-14 2-20 0-6-2-12 2-18 0-8-4-10-12-14-18-4-8-10-18-4-24zM156 66c8-2 16 2 18 8 1 6-4 10-10 10-6 0-12-4-12-10 0-4 2-7 4-8z' fill='%23000'/%3E%3C/svg%3E") center/100% 100% no-repeat}
+  .map-wrap{position:relative;max-width:1200px;margin:0 auto}
+  .pins{position:absolute;inset:0}
+  .pin{position:absolute;transform:translate(-50%,-100%);display:flex;flex-direction:column;align-items:center}
+  .pin i{width:18px;height:18px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);background:#999;transition:.3s}
+  .pin span{margin-top:6px;font-size:13px;font-weight:700;white-space:nowrap;background:#fff;padding:5px 10px;border-radius:20px;box-shadow:0 4px 12px rgba(0,0,0,.08);opacity:0;transform:translateY(-4px);transition:.3s}
+  .pin.active i,.pin:hover i{background:var(--primary);transform:rotate(-45deg) scale(1.3)}
+  .pin.active span,.pin:hover span{opacity:1;transform:none}
+  .pin.hq i{background:var(--primary)}
+  .pin.hq span{opacity:1;transform:none;background:var(--primary);color:#fff}
+  .branch-tabs{display:flex;justify-content:center;flex-wrap:wrap;gap:10px;margin-top:40px}
+  .branch-tabs button{padding:12px 24px;border:1px solid #ccc;border-radius:40px;font-size:15px;font-weight:600;background:#fff;transition:.25s}
+  .branch-tabs button.active,.branch-tabs button:hover{background:var(--ink);border-color:var(--ink);color:#fff}
+
+  /* ---------- Newsroom ---------- */
+  .news-list{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+  .news-item{display:flex;flex-direction:column;border-radius:24px;overflow:hidden;background:#fff;border:1px solid var(--line);transition:transform .3s,box-shadow .3s}
+  .news-item:hover{transform:translateY(-8px);box-shadow:0 20px 40px rgba(0,0,0,.08)}
+  .news-item .thumb{aspect-ratio:16/10;background:linear-gradient(135deg,#eee,#d9d9d9);position:relative}
+  .news-item:nth-child(2) .thumb{background:linear-gradient(135deg,#fde2e4,#fad2e1)}
+  .news-item:nth-child(3) .thumb{background:linear-gradient(135deg,#e2ece9,#bee1e6)}
+  .news-item .body{padding:28px 28px 32px;display:flex;flex-direction:column;gap:14px;flex:1}
+  .tag{align-self:flex-start;font-size:13px;font-weight:700;color:var(--primary);border:1px solid var(--primary);border-radius:20px;padding:4px 12px}
+  .news-item h3{font-size:19px;line-height:1.5;font-weight:700;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .news-item time{margin-top:auto;font-size:14px;color:var(--gray)}
+
+  /* ---------- Contact ---------- */
+  .contact{padding-top:0}
+  .contact .sec-title{font-size:clamp(28px,3vw,40px);margin-bottom:36px}
+  .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+  .contact-box{background:var(--primary-soft);border-radius:30px;padding:50px;display:flex;flex-direction:column;gap:12px;min-height:280px}
+  .contact-box h4{font-size:20px;font-weight:700}
+  .contact-box .tel{font-size:44px;font-weight:800;letter-spacing:-1px}
+  .contact-box p{color:#555;line-height:1.7}
+  .contact-box .btns{margin-top:auto;display:flex;gap:10px;flex-wrap:wrap}
+  .contact-box .btns a{padding:13px 24px;border-radius:40px;background:#fff;border:1px solid #ccc;font-weight:600;font-size:15px;transition:.25s}
+  .contact-box .btns a.primary{background:var(--primary-dark);border-color:var(--primary-dark);color:#fff}
+  .contact-box .btns a:hover{filter:brightness(.92)}
+
+  /* ---------- Footer ---------- */
+  .footer{background:var(--footer);color:#aaa;padding:70px 0 60px;font-size:14px}
+  .footer .wrap{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:40px}
+  .footer .policy{display:flex;gap:24px;margin-bottom:22px}
+  .footer .policy a{color:#fff;font-weight:600}
+  .footer .policy a:first-child{color:#ffb3b3}
+  .footer address{font-style:normal;line-height:1.9}
+  .footer .copy{margin-top:22px;color:#666}
+  .footer h5{color:#fff;font-size:15px;margin-bottom:16px}
+  .sns{display:flex;gap:10px}
+  .sns a{width:40px;height:40px;border-radius:50%;background:#333;display:grid;place-items:center;color:#fff;font-size:12px;font-weight:700;transition:.25s}
+  .sns a:hover{background:var(--primary)}
+  .report{display:flex;flex-direction:column;gap:14px}
+  .report div{border:1px solid #3a3a3a;border-radius:16px;padding:18px 20px;line-height:1.6;display:flex;justify-content:space-between;align-items:center;gap:16px}
+  .report a{flex:none;padding:8px 14px;border-radius:20px;background:#333;color:#fff;font-size:13px}
+  .report a:hover{background:var(--primary)}
+
+  /* ---------- Top button ---------- */
+  .top-btn{position:fixed;right:40px;bottom:40px;z-index:90;width:52px;height:52px;border-radius:50%;background:#111;color:#fff;display:grid;place-items:center;box-shadow:0 8px 20px rgba(0,0,0,.2);opacity:0;visibility:hidden;transition:.3s}
+  .top-btn.show{opacity:1;visibility:visible}
+
+  /* ---------- Responsive ---------- */
+  @media (max-width:1560px){
+    .gnb>li>a{padding:0 10px;font-size:15px}
+    .gnb>li>a::after{left:10px;right:10px}
+    .mega-col{width:130px;padding:0 10px}
+    .sitemap-grid{grid-template-columns:repeat(3,1fr)}
+  }
+  @media (max-width:1340px){
+    :root{--header-h:70px}
+    .gnb,.mega{display:none}
+  }
+  @media (max-width:1024px){
+    .header .wrap{padding:0 20px}
+    .wrap{padding:0 20px}
+    section{padding:90px 0}
+    .news-list{grid-template-columns:1fr}
+    .contact-grid{grid-template-columns:1fr}
+    .footer .wrap{grid-template-columns:1fr}
+    .biz-slider{padding-left:20px}
+    .hero-ctrl{right:20px;bottom:30px}
+  }
+  @media (max-width:640px){
+    .sitemap-grid{grid-template-columns:1fr 1fr}
+    .btn-inquiry{height:40px;padding:0 18px;font-size:14px;gap:8px}
+    .sitemap-grid .card{min-height:0}
+    .sec-head{flex-direction:column;align-items:flex-start}
+    .contact-box{padding:32px 24px}
+    .contact-box .tel{font-size:32px}
+    .top-btn{right:16px;bottom:16px}
+    .biz-card .txt strong{font-size:24px}
+  }
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="header" id="header">
+  <div class="wrap">
+    <a href="#" class="logo" aria-label="first">
+      <img src="img/first-logo-white.png" alt="first" class="logo-white">
+      <img src="img/first-logo.png" alt="first" class="logo-dark">
+    </a>
+    <ul class="gnb" id="gnb"></ul>
+    <div class="util">
+      <a href="#contact" class="btn-inquiry">문의하기
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 11L11 3M4.5 3H11v6.5"/></svg>
+      </a>
+      <button class="burger" id="burger" aria-label="전체메뉴"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+  <div class="mega">
+    <div class="mega-inner" id="megaInner"></div>
+  </div>
+</header>
+
+<!-- Full sitemap -->
+<div class="sitemap" id="sitemap">
+  <div class="wrap"><div class="sitemap-grid" id="sitemapGrid"></div></div>
+</div>
+
+<main>
+  <!-- Hero -->
+  <section class="hero" id="hero" style="padding:0">
+    <div class="slide active">
+      <div class="bg"></div>
+      <div class="hero-text"><h2><span><i>일상의 즐거움을</i></span><span><i>함께 만드는 브랜드</i></span></h2></div>
+    </div>
+    <div class="slide">
+      <div class="bg"></div>
+      <div class="hero-text"><h2><span><i>더 건강한 내일을</i></span><span><i>세계와 나눕니다</i></span></h2></div>
+    </div>
+    <div class="hero-ctrl">
+      <div class="pager" id="pager"></div>
+      <a href="#business" class="scroll-down" aria-label="아래로">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8 2v12M3 9l5 5 5-5"/></svg>
+      </a>
+    </div>
+  </section>
+
+  <!-- Our Business -->
+  <section id="business">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <h2 class="sec-title">Our Business</h2>
+        <a href="#" class="more">자세히 보기 →</a>
+      </div>
+    </div>
+    <div class="biz-slider reveal">
+      <div class="biz-track" id="bizTrack">
+        <a href="#" class="biz-card"><div class="ph" data-icon="ICE"></div><div class="txt"><strong>아이스크림</strong><span>Ice Cream</span></div></a>
+        <a href="#" class="biz-card"><div class="ph" data-icon="MILK"></div><div class="txt"><strong>우유/치즈</strong><span>Milk/Cheese</span></div></a>
+        <a href="#" class="biz-card"><div class="ph" data-icon="YOG"></div><div class="txt"><strong>발효유</strong><span>Fermented Milk</span></div></a>
+        <a href="#" class="biz-card"><div class="ph" data-icon="NEW"></div><div class="txt"><strong>음료/기타</strong><span>Beverage</span></div></a>
+      </div>
+    </div>
+    <div class="biz-ctrl">
+      <div class="dots" id="bizDots"></div>
+      <button class="play" id="bizPlay" aria-label="일시정지">❚❚</button>
+    </div>
+  </section>
+
+  <!-- Global -->
+  <section class="global" id="global">
+    <div class="wrap">
+      <div class="sec-head reveal"><h2 class="sec-title">Global Network</h2></div>
+      <p class="sec-desc reveal">전 세계에 <b>브랜드의 밝은 미소</b>를 전달합니다.</p>
+      <div class="map-wrap reveal">
+        <div class="map"></div>
+        <div class="pins" id="pins"></div>
+      </div>
+      <div class="branch-tabs reveal" id="branchTabs"></div>
+    </div>
+  </section>
+
+  <!-- Newsroom -->
+  <section id="newsroom">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div>
+          <h2 class="sec-title">Newsroom</h2>
+          <p class="sec-desc">다양한 소식과 업계 트렌드를 만나볼 수 있습니다.</p>
+        </div>
+        <a href="#" class="more">뉴스룸 바로가기 →</a>
+      </div>
+      <div class="news-list">
+        <a href="#" class="news-item reveal"><div class="thumb"></div><div class="body"><span class="tag">보도자료</span><h3>신제품 출시 소식 제목이 들어가는 자리입니다</h3><time>2026.10.21</time></div></a>
+        <a href="#" class="news-item reveal"><div class="thumb"></div><div class="body"><span class="tag">보도자료</span><h3>사회공헌 행사 개최 관련 보도자료 제목 예시</h3><time>2026.10.19</time></div></a>
+        <a href="#" class="news-item reveal"><div class="thumb"></div><div class="body"><span class="tag">보도자료</span><h3>브랜드 캠페인 및 팝업 이벤트 소식 제목 예시 텍스트</h3><time>2026.10.19</time></div></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section class="contact" id="contact">
+    <div class="wrap">
+      <h2 class="sec-title reveal">고객문의 및 불편사항</h2>
+      <div class="contact-grid">
+        <div class="contact-box reveal">
+          <h4>전화 상담</h4>
+          <div class="tel">080.000.0000</div>
+          <p>월~금(공휴일 제외) 09:00~17:30</p>
+          <div class="btns"><a href="#">FAQ 바로가기</a></div>
+        </div>
+        <div class="contact-box reveal">
+          <h4>이메일 상담</h4>
+          <p>궁금한 사항을 문의해주세요.<br>최대한 빠른 시일 내에 친절하게 답변해드리겠습니다.</p>
+          <div class="btns"><a href="#" class="primary">이메일 상담하기</a></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="wrap">
+    <div>
+      <div class="policy"><a href="#">개인정보처리방침</a><a href="#">오시는길</a></div>
+      <address>
+        주소 : 회사 주소를 입력하세요<br>
+        고객 문의 : 080.000.0000 / 월~금(공휴일 제외) 09:00~17:30<br>
+        <a href="#contact" style="color:#fff;text-decoration:underline">이메일 상담 바로가기</a>
+      </address>
+      <p class="copy">© Company Co.,Ltd. All rights reserved</p>
+    </div>
+    <div>
+      <h5>Social 채널</h5>
+      <div class="sns"><a href="#">IG</a><a href="#">YT</a><a href="#">FB</a><a href="#">BL</a></div>
+      <h5 style="margin-top:28px">Global 채널</h5>
+      <div class="sns"><a href="#">US</a><a href="#">CN</a><a href="#">VN</a><a href="#">AU</a></div>
+    </div>
+    <div class="report">
+      <h5>임직원 및 종사자 온라인 제보센터</h5>
+      <div><span>부당한 요구 또는 업무처리,<br>인권고충, 기타 부정행위</span><a href="#">제보하기</a></div>
+      <div><span>유해위험요소 및<br>안전 보건에 관한 의견</span><a href="#">제보하기</a></div>
+    </div>
+  </div>
+</footer>
+
+<button class="top-btn" id="topBtn" aria-label="맨 위로">
+  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8 14V2M3 7l5-5 5 5"/></svg>
+</button>
+
+<script>
+/* ---------- Menu data ---------- */
+const MENU = [
+  ['회사소개',[]],
+  ['브랜딩 · 로고 제작',[]],
+  ['인쇄 · 홍보물 제작',['카탈로그 · 카다로그','리플렛 · 리플릿','팜플렛 · 팜플릿','브로슈어 · 브로셔','포스터']],
+  ['PPT · 제안서',[]],
+  ['홈페이지 · 웹',[]],
+  ['촬영 · 스튜디오',[]],
+  ['마케팅 · 광고',[]],
+  ['포트폴리오',[]],
+  ['블로그',[]]
+];
+const header = document.getElementById('header');
+document.getElementById('gnb').innerHTML = MENU.map(([t]) => `<li><a href="#">${t}</a></li>`).join('');
+document.getElementById('megaInner').innerHTML = MENU.map(([t,items]) =>
+  `<div class="mega-col"><h4>${t}</h4><ul>${items.map(i=>`<li><a href="#">${i}</a></li>`).join('')}</ul></div>`).join('');
+document.getElementById('sitemapGrid').innerHTML = MENU.map(([t,items]) =>
+  `<div class="card"><h4>${t}</h4><ul>${items.map(i=>`<li><a href="#">${i}</a></li>`).join('')}</ul></div>`).join('');
+
+const gnb = document.getElementById('gnb');
+gnb.addEventListener('mouseenter', () => header.classList.add('menu-open'));
+header.addEventListener('mouseleave', () => header.classList.remove('menu-open'));
+
+document.getElementById('burger').addEventListener('click', () => {
+  document.body.classList.toggle('sitemap-open');
+  document.body.style.overflow = document.body.classList.contains('sitemap-open') ? 'hidden' : '';
+});
+document.querySelectorAll('#sitemap a').forEach(a => a.addEventListener('click', () => {
+  document.body.classList.remove('sitemap-open'); document.body.style.overflow = '';
+}));
+
+/* ---------- Header / top button on scroll ---------- */
+const topBtn = document.getElementById('topBtn');
+function onScroll(){
+  const y = window.scrollY;
+  header.classList.toggle('scrolled', y > 60);
+  topBtn.classList.toggle('show', y > 400);
+}
+window.addEventListener('scroll', onScroll, {passive:true}); onScroll();
+topBtn.addEventListener('click', () => window.scrollTo({top:0, behavior:'smooth'}));
+
+/* ---------- Hero slider ---------- */
+const HERO_DUR = 6000;
+const slides = [...document.querySelectorAll('.slide')];
+const pager = document.getElementById('pager');
+pager.style.setProperty('--dur', HERO_DUR + 'ms');
+pager.innerHTML = slides.map((_, i) =>
+  `<button data-i="${i}">${String(i+1).padStart(2,'0')}<svg viewBox="0 0 44 44"><circle class="track" cx="22" cy="22" r="20"/><circle class="bar" cx="22" cy="22" r="20"/></svg></button>`).join('');
+const pages = [...pager.children];
+let hi = 0, heroTimer;
+function goHero(n){
+  slides[hi].classList.remove('active'); pages[hi].classList.remove('active');
+  hi = (n + slides.length) % slides.length;
+  slides[hi].classList.add('active');
+  void pages[hi].offsetWidth; pages[hi].classList.add('active');
+  clearTimeout(heroTimer); heroTimer = setTimeout(() => goHero(hi + 1), HERO_DUR);
+}
+pages.forEach(b => b.addEventListener('click', () => goHero(+b.dataset.i)));
+goHero(0);
+
+/* ---------- Business slider ---------- */
+const track = document.getElementById('bizTrack');
+const cards = [...track.children];
+const dots = document.getElementById('bizDots');
+dots.innerHTML = cards.map((_, i) => `<button data-i="${i}" aria-label="${i+1}번"></button>`).join('');
+let bi = 0, bizTimer, bizPlaying = true;
+function goBiz(n){
+  const visible = Math.max(1, Math.floor(track.parentElement.clientWidth / (cards[0].offsetWidth + 24)));
+  const max = Math.max(0, cards.length - visible);
+  bi = n > max ? 0 : n < 0 ? max : n;
+  track.style.transform = `translateX(${-bi * (cards[0].offsetWidth + 24)}px)`;
+  [...dots.children].forEach((d, i) => d.classList.toggle('active', i === bi));
+}
+function bizAuto(){ clearInterval(bizTimer); if (bizPlaying) bizTimer = setInterval(() => goBiz(bi + 1), 4000); }
+dots.addEventListener('click', e => { if (e.target.dataset.i) { goBiz(+e.target.dataset.i); bizAuto(); } });
+const playBtn = document.getElementById('bizPlay');
+playBtn.addEventListener('click', () => {
+  bizPlaying = !bizPlaying; playBtn.textContent = bizPlaying ? '❚❚' : '▶'; bizAuto();
+});
+// drag / swipe
+let sx = null;
+track.addEventListener('pointerdown', e => { sx = e.clientX; });
+window.addEventListener('pointerup', e => {
+  if (sx === null) return;
+  const dx = e.clientX - sx; sx = null;
+  if (Math.abs(dx) > 50) { goBiz(bi + (dx < 0 ? 1 : -1)); bizAuto(); }
+});
+track.addEventListener('click', e => { if (track.dataset.dragged) e.preventDefault(); });
+window.addEventListener('resize', () => goBiz(bi));
+goBiz(0); bizAuto();
+
+/* ---------- Global map ---------- */
+const BRANCHES = [
+  {name:'본사 (Korea)', x:84, y:34, hq:true},
+  {name:'USA Office', x:20, y:36},
+  {name:'China Office', x:76, y:36},
+  {name:'Vietnam Office', x:76, y:50},
+  {name:'Australia Office', x:85, y:80}
+];
+const pins = document.getElementById('pins');
+pins.innerHTML = BRANCHES.map((b, i) =>
+  `<div class="pin${b.hq ? ' hq' : ''}" data-i="${i}" style="left:${b.x}%;top:${b.y}%"><i></i><span>${b.name}</span></div>`).join('');
+const tabs = document.getElementById('branchTabs');
+tabs.innerHTML = BRANCHES.filter(b => !b.hq).map(b => `<button data-i="${BRANCHES.indexOf(b)}">${b.name}</button>`).join('');
+tabs.addEventListener('click', e => {
+  const i = e.target.dataset.i; if (i === undefined) return;
+  [...tabs.children].forEach(t => t.classList.toggle('active', t === e.target));
+  [...pins.children].forEach(p => p.classList.toggle('active', p.dataset.i === i));
+});
+
+/* ---------- Scroll reveal ---------- */
+const io = new IntersectionObserver(entries => entries.forEach(en => {
+  if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); }
+}), {threshold:.15});
+document.querySelectorAll('.reveal').forEach((el, i) => {
+  el.style.transitionDelay = (el.parentElement.classList.contains('news-list') || el.parentElement.classList.contains('contact-grid'))
+    ? `${[...el.parentElement.children].indexOf(el) * .12}s` : '0s';
+  io.observe(el);
+});
+</script>
+</body>
+</html>
