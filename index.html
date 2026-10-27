@@ -85,6 +85,10 @@
   .hero-text h2 span i{display:block;font-style:normal;transform:translateY(110%);transition:transform 1s cubic-bezier(.2,.7,.2,1)}
   .slide.active .hero-text h2 span i{transform:none}
   .slide.active .hero-text h2 span:nth-child(2) i{transition-delay:.15s}
+  /* chữ nhấn: xanh sáng hơn --primary để nổi trên nền ảnh tối */
+  .hero-text h2 em{font-style:normal;color:#5cc77f}
+  .hero-text p{margin-top:24px;font-size:18px;line-height:1.65;color:rgba(255,255,255,.88);opacity:0;transform:translateY(16px);transition:opacity .8s .4s,transform .8s .4s}
+  .slide.active .hero-text p{opacity:1;transform:none}
   .hero-ctrl{position:absolute;right:50px;bottom:60px;z-index:3;display:flex;align-items:center;gap:22px}
   .pager{display:flex;gap:14px}
   .pager button{position:relative;width:44px;height:44px;font-size:13px;font-weight:700;color:rgba(255,255,255,.7)}
@@ -223,6 +227,10 @@
     .sitemap-grid{grid-template-columns:1fr 1fr}
     .btn-inquiry{height:40px;padding:0 18px;font-size:14px;gap:8px}
     .sitemap-grid .card{min-height:0}
+    .hero-text{left:20px;right:20px;bottom:120px}
+    .hero-text h2{font-size:32px;letter-spacing:-1px}
+    .hero-text p{margin-top:14px;font-size:14px}
+    .hero-text p br{display:none}
     .sec-head{flex-direction:column;align-items:flex-start}
     .contact-box{padding:32px 24px}
     .contact-box .tel{font-size:32px}
@@ -262,15 +270,24 @@
   <section class="hero" id="hero" style="padding:0">
     <div class="slide active">
       <div class="bg"></div>
-      <div class="hero-text"><h2><span><i>브랜드의 첫인상을</i></span><span><i>디자인합니다</i></span></h2></div>
+      <div class="hero-text">
+        <h2><span><i>생각 그 이상의 디자인</i></span><span><i><em>FIRST DESIGN</em></i></span></h2>
+        <p>다양한 분야의 전문인력들이 만들어 온 퍼스트디자인은 <br>다년간의 실무경험을 통해 여러 기업들과 함께 성장해 온 기업입니다.</p>
+      </div>
     </div>
     <div class="slide">
       <div class="bg"></div>
-      <div class="hero-text"><h2><span><i>기획부터 인쇄까지</i></span><span><i>한 번에 완성합니다</i></span></h2></div>
+      <div class="hero-text">
+        <h2><span><i>생각을 <em>브랜드</em>로,</i></span><span><i>브랜드를 <em>경험</em>으로</i></span></h2>
+        <p>기획부터 디자인까지. <br>브랜드가 고객에게 전달되는 모든 순간을 함께 설계합니다.</p>
+      </div>
     </div>
     <div class="slide">
       <div class="bg"></div>
-      <div class="hero-text"><h2><span><i>읽히는 디자인으로</i></span><span><i>성과를 만듭니다</i></span></h2></div>
+      <div class="hero-text">
+        <h2><span><i>브랜드의 성장은</i></span><span><i><em>좋은 디자인</em>에서 시작됩니다</i></span></h2>
+        <p>단순한 결과물이 아닌 <br>브랜드의 경쟁력을 만드는 디자인을 연구하고 제작합니다.</p>
+      </div>
     </div>
     <div class="hero-ctrl">
       <div class="pager" id="pager"></div>
@@ -346,7 +363,7 @@
         </div>
         <div class="contact-box reveal">
           <h4>이메일 상담</h4>
-          <p>궁금한 사항을 문의해주세요.<br>최대한 빠른 시일 내에 친절하게 답변해드리겠습니다.</p>
+          <p>궁금한 사항을 문의해주세요. <br>최대한 빠른 시일 내에 친절하게 답변해드리겠습니다.</p>
           <div class="btns"><a href="#" class="primary">이메일 상담하기</a></div>
         </div>
       </div>
