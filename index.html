@@ -71,12 +71,13 @@
   .hero{position:relative;height:100vh;min-height:640px;overflow:hidden;color:#fff;background:#222}
   .slide{position:absolute;inset:0;opacity:0;transition:opacity 1.2s ease}
   .slide.active{opacity:1}
-  .slide .bg{position:absolute;inset:0;transform:scale(1.12);transition:transform 7s linear}
-  .slide.active .bg{transform:scale(1)}
-  .slide .bg{background:#222 center/cover no-repeat}
-  .slide:nth-child(1) .bg{background-image:url(img/hero-1.webp)}
-  .slide:nth-child(2) .bg{background-image:url(img/hero-2.jpg)}
-  .slide:nth-child(3) .bg{background-image:url(img/hero-3.webp)}
+  /* .bg = màu trơn lấy từ mép ảnh, .pic = ảnh hiển thị trọn vẹn không cắt */
+  .slide .bg{position:absolute;inset:0;background:var(--bgc)}
+  .slide .pic{position:absolute;inset:var(--header-h) 0 0;display:flex;align-items:center;justify-content:center}
+  /* viền ảnh mờ dần để hòa vào nền mờ, không lộ đường ranh */
+  .slide .pic img{max-width:100%;max-height:100%;
+    -webkit-mask-image:linear-gradient(to right,transparent,#000 6%,#000 94%,transparent),linear-gradient(to bottom,transparent,#000 6%,#000 94%,transparent);
+    -webkit-mask-composite:source-in;mask-composite:intersect}
   /* lớp tối góc dưới trái để chữ trắng đọc được trên ảnh sáng */
   .slide::after{content:"";position:absolute;inset:0;background:linear-gradient(to top right,rgba(0,0,0,.6),rgba(0,0,0,.15) 55%,rgba(0,0,0,0))}
   .hero-text{position:absolute;left:8%;bottom:16%;z-index:2;word-break:keep-all}
@@ -231,6 +232,7 @@
     .hero-text h2{font-size:32px;letter-spacing:-1px}
     .hero-text p{margin-top:14px;font-size:14px}
     .hero-text p br{display:none}
+    .slide .pic{bottom:330px}
     .sec-head{flex-direction:column;align-items:flex-start}
     .contact-box{padding:32px 24px}
     .contact-box .tel{font-size:32px}
@@ -268,22 +270,22 @@
 <main>
   <!-- Hero -->
   <section class="hero" id="hero" style="padding:0">
-    <div class="slide active">
-      <div class="bg"></div>
+    <div class="slide active" style="--bgc:#2c6484">
+      <div class="bg"></div><div class="pic"><img src="img/hero-1.webp" alt=""></div>
       <div class="hero-text">
         <h2><span><i>처음부터 다른 디자인,</i></span><span><i><em>FIRST DESIGN</em></i></span></h2>
         <p>12년 넘게 3,200건 이상의 프로젝트를 함께하며 쌓은 경험으로 <br>기업의 이야기를 가장 잘 전해지는 모습으로 디자인합니다.</p>
       </div>
     </div>
-    <div class="slide">
-      <div class="bg"></div>
+    <div class="slide" style="--bgc:#acc5cb">
+      <div class="bg"></div><div class="pic"><img src="img/hero-2.jpg" alt=""></div>
       <div class="hero-text">
         <h2><span><i>한 장의 인쇄물이</i></span><span><i><em>브랜드의 얼굴</em>이 됩니다</i></span></h2>
         <p>카탈로그와 리플렛부터 포스터까지. <br>자체 인쇄소에서 출력 품질까지 직접 확인하고 전달합니다.</p>
       </div>
     </div>
-    <div class="slide">
-      <div class="bg"></div>
+    <div class="slide" style="--bgc:#6b8982">
+      <div class="bg"></div><div class="pic"><img src="img/hero-3.webp" alt=""></div>
       <div class="hero-text">
         <h2><span><i>보기 좋은 디자인을 넘어</i></span><span><i><em>성과</em>로 이어지는 디자인</i></span></h2>
         <p>기획, 디자인, 촬영, 인쇄를 한 팀에서 진행해 <br>브랜드의 메시지가 처음부터 끝까지 흐트러지지 않습니다.</p>
