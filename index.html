@@ -80,6 +80,9 @@
     -webkit-mask-image:linear-gradient(to right,transparent,#000 6%,#000 94%,transparent),linear-gradient(to bottom,transparent,#000 6%,#000 94%,transparent);
     -webkit-mask-composite:source-in;mask-composite:intersect;
     transform:scale(1.12);transform-origin:left center;transition:transform 7s linear}   /* phóng từ mép trái: không lấn về phía chữ */
+  /* ảnh slide 2 (khổ ngang, logo sát mép trái): khung rộng hơn, mép mờ mỏng để không làm nhạt logo */
+  .slide .pic.wide{left:45%;right:1.5%}
+  .slide .pic.wide img{-webkit-mask-image:linear-gradient(to right,transparent,#000 2%,#000 98%,transparent),linear-gradient(to bottom,transparent,#000 3%,#000 97%,transparent)}
   /* ảnh to dần rồi thu về kích thước thật trong 7 giây (giống bing) */
   .slide.active .pic img{transform:scale(1)}
   /* lớp tối góc dưới trái để chữ trắng đọc được trên ảnh sáng */
@@ -275,6 +278,7 @@
   @media (max-width:820px){
     .slide .pic{top:var(--header-h);left:0;right:0;bottom:340px}
     .slide .pic img{transform-origin:center}
+    .slide .pic.wide{left:0;right:0}
     .hero-text{left:20px;right:20px;width:auto;top:auto;bottom:120px;transform:none}
   }
   @media (max-width:640px){
@@ -350,8 +354,8 @@
         <p>12년 넘게 3,200건 이상의 프로젝트를 함께하며 쌓은 경험으로 <br>기업의 이야기를 가장 잘 전해지는 모습으로 디자인합니다.</p>
       </div>
     </div>
-    <div class="slide" style="--bgc:linear-gradient(90deg,#bcbbba 0 50%,#a3c1c8 75%,#72c3d5)">
-      <div class="bg"></div><div class="pic"><img src="img/hero-2c.jpg" alt=""></div>
+    <div class="slide" style="--bgc:linear-gradient(90deg,#b3b2b1 0 50%,#a9c3ca 72%,#b0d7e4)">
+      <div class="bg"></div><div class="pic wide"><img src="img/hero-2.jpg" alt=""></div>
       <div class="hero-text">
         <h2><span><i>한 장의 인쇄물이</i></span><span><i><em>브랜드의 얼굴</em>이 됩니다</i></span></h2>
         <p>카탈로그와 리플렛부터 포스터까지. <br>자체 인쇄소에서 출력 품질까지 직접 확인하고 전달합니다.</p>
