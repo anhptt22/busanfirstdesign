@@ -82,8 +82,6 @@
     transform:scale(1.12);transform-origin:left center;transition:transform 7s linear}   /* phóng từ mép trái: không lấn về phía chữ */
   /* ảnh slide 2 (khổ ngang, đã cắt bỏ phần giấy xanh bên phải): cao kín từ dưới menu tới đáy, bám mép phải.
      Phần bên trái ảnh chỉ là nền giấy + logo nên chữ nằm lên được; tờ rơi chéo sang phải, không chạm chữ ở góc dưới */
-  .slide .pic.wide{top:var(--header-h);right:0;bottom:0;left:0}
-  .slide .pic.wide img{width:100%;height:100%;max-width:none;max-height:none;object-fit:contain;object-position:right center;-webkit-mask-image:none;mask-image:none}
   /* ảnh to dần rồi thu về kích thước thật trong 7 giây (giống bing) */
   .slide.active .pic img{transform:scale(1)}
   /* lớp tối góc dưới trái để chữ trắng đọc được trên ảnh sáng */
@@ -279,16 +277,9 @@
     .biz-card{flex-basis:calc((100% - 24px)/2)}
     .hero-ctrl{right:20px;bottom:30px}
   }
-  @media (max-width:1180px){
-    /* màn vừa: ảnh slide 2 về lại cột phải như 2 slide kia */
-    .slide .pic.wide{top:calc(var(--header-h) + 40px);right:4%;bottom:100px;left:47%}
-    .slide .pic.wide img{width:auto;height:auto;max-width:100%;max-height:100%;
-      -webkit-mask-image:linear-gradient(to right,transparent,#000 2%,#000 98%,transparent),linear-gradient(to bottom,transparent,#000 3%,#000 97%,transparent)}
-  }
   @media (max-width:820px){
     .slide .pic{top:var(--header-h);left:0;right:0;bottom:340px}
     .slide .pic img{transform-origin:center}
-    .slide .pic.wide{top:var(--header-h);left:0;right:0;bottom:340px}
     .hero-text{left:20px;right:20px;width:auto;bottom:120px}
   }
   @media (max-width:640px){
@@ -364,8 +355,8 @@
         <p>12년 넘게 3,200건 이상의 프로젝트를 함께하며 쌓은 경험으로 <br>기업의 이야기를 가장 잘 전해지는 모습으로 디자인합니다.</p>
       </div>
     </div>
-    <div class="slide" style="--bgc:linear-gradient(90deg,#b3b2b1 0 50%,#a9c3ca 72%,#b0d7e4)">
-      <div class="bg"></div><div class="pic wide"><img src="img/hero-2w.jpg" alt=""></div>
+    <div class="slide" style="--bgc:#0c87cb">
+      <div class="bg"></div><div class="pic"><img src="img/hero-2p.jpg" alt=""></div>
       <div class="hero-text">
         <h2><span><i>한 장의 인쇄물이</i></span><span><i><em>브랜드의 얼굴</em>이 됩니다</i></span></h2>
         <p>카탈로그와 리플렛부터 포스터까지. <br>자체 인쇄소에서 출력 품질까지 직접 확인하고 전달합니다.</p>
