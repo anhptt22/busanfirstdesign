@@ -222,12 +222,15 @@
   .pfo-tabs button{padding:12px 16px;font-size:16px;color:#a9b5ad;white-space:nowrap;transition:color .3s}
   .pfo-tabs button.on{color:var(--ink);font-weight:800}
   .pfo-right{flex:1;position:relative;overflow:hidden;border-radius:24px;background:#eee}
-  .pfo-right img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;will-change:opacity,transform}
+  .pfo-right > img,.pfo-native{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;will-change:opacity,transform}
+  .pfo-native{overflow:hidden;display:flex;align-items:center;justify-content:center}
+  .pfo-native i{position:absolute;inset:-40px;background:center/cover no-repeat;filter:blur(28px) saturate(1.05);opacity:.9}
+  .pfo-native img{position:relative;width:auto;height:auto;max-width:calc(100% - 40px);max-height:calc(100% - 40px);border-radius:14px;box-shadow:0 24px 50px rgba(60,40,20,.18)}
   /* điện thoại: không ghim, chuyển bằng transition */
   .pfo.auto .pfo-titles ul{transition:transform .6s cubic-bezier(.4,0,.2,1)}
   .pfo.auto .pfo-titles li{transition:color .6s,transform .6s cubic-bezier(.4,0,.2,1)}
   .pfo.auto .pfo-tabs-track{transition:transform .4s ease}
-  .pfo.auto .pfo-right img{transition:opacity .7s ease,transform 1.4s ease}
+  .pfo.auto .pfo-right > img,.pfo.auto .pfo-native{transition:opacity .7s ease,transform 1.4s ease}
 
   /* ---------- Newsroom ---------- */
   .news-list{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
@@ -679,7 +682,7 @@ const PFO = [
   {name:'카탈로그·브로슈어', img:'img/pf-2.jpg?v=2', alt:'배산초등학교 THE BUSAN 프로젝트 브로슈어', pos:'50% 50%'},
   {name:'팜플렛·리플렛', img:'img/pf-3.jpg?v=2', alt:'삼성화재 리플렛', pos:'33% 50%'},
   {name:'포스터', img:'img/pf-4.jpg?v=2', alt:'부산 재난안전 포럼 포스터', pos:'50% 50%'},
-  {name:'제품촬영', img:'img/pf-5.jpg?v=2', alt:'직연들기름 제품 촬영', pos:'50% 90%'}
+  {name:'제품촬영', img:'img/pf-5.jpg?v=3', alt:'직연들기름 제품 촬영', native:true} // ảnh gốc nhỏ (370px): giữ nguyên cỡ, phần thiếu là nền mờ
 ];
 const pfo = document.getElementById('portfolio');
 const pfoTitles = document.getElementById('pfoTitles');
@@ -687,7 +690,9 @@ const pfoTabs = document.getElementById('pfoTabs');
 const pfoImgs = document.getElementById('pfoImgs');
 pfoTitles.innerHTML = PFO.map(p => `<li>${p.name}</li>`).join('');
 pfoTabs.innerHTML = PFO.map((p, i) => `<button type="button" data-i="${i}">${p.name}</button>`).join('');
-pfoImgs.innerHTML = PFO.map(p => `<img src="${p.img}" alt="${p.alt}" style="object-position:${p.pos}" loading="lazy">`).join('');
+pfoImgs.innerHTML = PFO.map(p => p.native
+  ? `<div class="pfo-native"><i style="background-image:url('${p.img}')"></i><img src="${p.img}" alt="${p.alt}"></div>`
+  : `<img src="${p.img}" alt="${p.alt}" style="object-position:${p.pos}" loading="lazy">`).join('');
 const pfoMobile = matchMedia('(max-width:820px)');
 const pfoPin = pfo.querySelector('.pfo-pin');
 const PFO_STEP = .9;                 // mỗi lần chuyển mục ứng với 90% chiều cao màn hình khi cuộn
