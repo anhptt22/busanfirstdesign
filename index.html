@@ -20,7 +20,9 @@
     --wrap:1400px;
   }
   *{box-sizing:border-box;margin:0;padding:0}
-  html{scroll-behavior:smooth}
+  html:not(.lenis){scroll-behavior:smooth}
+  html.lenis{height:auto}
+  .lenis.lenis-smooth{scroll-behavior:auto!important}
   body{font-family:Pretendard,sans-serif;color:var(--ink);background:#fff;-webkit-font-smoothing:antialiased;overflow-x:hidden}
   a{color:inherit;text-decoration:none}
   ul{list-style:none}
@@ -200,24 +202,28 @@
   .biz-ctrl .dots button.active{width:40px;background:var(--primary)}
   .biz-ctrl .play{width:22px;height:22px;border:1px solid #bbb;border-radius:50%;display:grid;place-items:center;font-size:8px;color:#888}
 
-  /* ---------- Portfolio (kiểu arinmhc: khung chữ trái + ảnh phải, cuộn tới thì ghim lại và chuyển từng mục) ---------- */
+  /* ---------- Portfolio (kiểu arinmhc: khung chữ trái + ảnh phải; cuộn tới thì ghim, ảnh/chữ/tab chạy liên tục theo vị trí cuộn) ---------- */
   .pfo{padding:0;position:relative}
+  .pfo .wrap{max-width:1680px}
   .pfo-pin{position:sticky;top:var(--header-h);height:calc(100vh - var(--header-h));display:flex;align-items:center}
-  .pfo-stage{display:flex;gap:20px;height:min(600px,calc(100vh - var(--header-h) - 60px))}
-  .pfo-left{flex:0 0 30%;position:relative;overflow:hidden;border-radius:20px;background:var(--primary-soft);display:flex;align-items:center;justify-content:center}
-  .pfo-cap{position:absolute;top:44px;left:0;right:0;text-align:center;font-size:15px;font-weight:800;letter-spacing:.02em}
-  .pfo-titles{--row:84px;height:calc(var(--row) * 3);overflow:hidden;width:100%}
-  .pfo-titles ul{transition:transform .6s cubic-bezier(.4,0,.2,1)}
-  .pfo-titles li{height:var(--row);display:flex;align-items:center;justify-content:center;font-size:clamp(26px,2.3vw,40px);font-weight:800;letter-spacing:-1px;color:#b7c4bc;
-    transform:scale(.72);transition:color .6s,transform .6s cubic-bezier(.4,0,.2,1);white-space:nowrap}
-  .pfo-titles li.on{color:var(--ink);transform:none}
-  .pfo-tabs{position:absolute;left:0;right:0;bottom:36px;overflow:hidden}
-  .pfo-tabs-track{display:flex;width:max-content;transition:transform .4s ease}
-  .pfo-tabs button{padding:10px 14px;font-size:14px;color:#a9b5ad;white-space:nowrap;transition:color .3s}
+  .pfo-stage{display:flex;gap:24px;height:min(780px,calc(100vh - var(--header-h) - 48px))}
+  .pfo-left{flex:0 0 30%;position:relative;overflow:hidden;border-radius:24px;background:var(--primary-soft);display:flex;align-items:center;justify-content:center}
+  .pfo-cap{position:absolute;top:52px;left:0;right:0;text-align:center;font-size:24px;font-weight:800;letter-spacing:-.01em}
+  .pfo-titles{--row:96px;height:calc(var(--row) * 3);overflow:hidden;width:100%}
+  .pfo-titles ul{will-change:transform}
+  .pfo-titles li{height:var(--row);display:flex;align-items:center;justify-content:center;font-size:clamp(30px,2.6vw,48px);font-weight:800;letter-spacing:-1px;
+    color:#b7c4bc;transform:scale(.72);white-space:nowrap;will-change:transform}
+  .pfo-tabs{position:absolute;left:0;right:0;bottom:40px;overflow:hidden}
+  .pfo-tabs-track{display:flex;width:max-content;will-change:transform}
+  .pfo-tabs button{padding:12px 16px;font-size:16px;color:#a9b5ad;white-space:nowrap;transition:color .3s}
   .pfo-tabs button.on{color:var(--ink);font-weight:800}
-  .pfo-right{flex:1;position:relative;overflow:hidden;border-radius:20px;background:#eee}
-  .pfo-right img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transform:scale(1.06);transition:opacity .7s ease,transform 1.4s ease}
-  .pfo-right img.on{opacity:1;transform:none}
+  .pfo-right{flex:1;position:relative;overflow:hidden;border-radius:24px;background:#eee}
+  .pfo-right img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;will-change:opacity,transform}
+  /* điện thoại: không ghim, chuyển bằng transition */
+  .pfo.auto .pfo-titles ul{transition:transform .6s cubic-bezier(.4,0,.2,1)}
+  .pfo.auto .pfo-titles li{transition:color .6s,transform .6s cubic-bezier(.4,0,.2,1)}
+  .pfo.auto .pfo-tabs-track{transition:transform .4s ease}
+  .pfo.auto .pfo-right img{transition:opacity .7s ease,transform 1.4s ease}
 
   /* ---------- Newsroom ---------- */
   .news-list{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
@@ -313,8 +319,10 @@
     .pfo-pin{position:static;height:auto;display:block}
     .pfo-stage{flex-direction:column;height:auto;gap:14px}
     .pfo-left{flex:none;height:300px}
-    .pfo-cap{top:30px}
+    .pfo-cap{top:28px}
     .pfo-titles{--row:60px}
+    .pfo-titles li{font-size:26px}
+    .pfo-cap{font-size:20px}
     .pfo-tabs{bottom:20px}
     .pfo-right{flex:none;aspect-ratio:16/11}
     .slide .pic{top:var(--header-h);left:0;right:0;bottom:340px}
@@ -552,7 +560,16 @@
   <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8 14V2M3 7l5-5 5 5"/></svg>
 </button>
 
+<script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.39/dist/lenis.min.js"></script>
 <script>
+/* ---------- Cuộn mượt cả trang (Lenis, giống arinmhc) ---------- */
+let lenis = null;
+if (window.Lenis && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  lenis = new Lenis({lerp:.1, wheelMultiplier:1});
+  const lenisRaf = t => { lenis.raf(t); requestAnimationFrame(lenisRaf); };
+  requestAnimationFrame(lenisRaf);
+}
+const smoothTo = top => lenis ? lenis.scrollTo(top, {duration:1.4}) : scrollTo({top, behavior:'smooth'});
 /* ---------- Menu data ---------- */
 const MENU = [
   ['회사소개',[]],
@@ -592,7 +609,7 @@ function onScroll(){
   topBtn.classList.toggle('show', y > 400);
 }
 window.addEventListener('scroll', onScroll, {passive:true}); onScroll();
-topBtn.addEventListener('click', () => window.scrollTo({top:0, behavior:'smooth'}));
+topBtn.addEventListener('click', () => smoothTo(0));
 
 /* ---------- Hero slider ---------- */
 const HERO_DUR = 6000;
@@ -667,46 +684,76 @@ pfoTitles.innerHTML = PFO.map(p => `<li>${p.name}</li>`).join('');
 pfoTabs.innerHTML = PFO.map((p, i) => `<button type="button" data-i="${i}">${p.name}</button>`).join('');
 pfoImgs.innerHTML = PFO.map(p => `<img src="${p.img}" alt="${p.alt}" style="object-position:${p.pos}" loading="lazy">`).join('');
 const pfoMobile = matchMedia('(max-width:820px)');
-const PFO_STEP = .7; // mỗi mục ứng với 70% chiều cao màn hình khi cuộn
-let pi = -1, pfoTimer;
-function goPfo(n){
-  n = (n + PFO.length) % PFO.length;
-  if (n === pi) return; pi = n;
+const pfoPin = pfo.querySelector('.pfo-pin');
+const PFO_STEP = .9;                 // mỗi lần chuyển mục ứng với 90% chiều cao màn hình khi cuộn
+const INK = [17,17,17], GREY = [183,196,188];
+const ease = t => t < .5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2; // easeInOutQuad
+let pCur = 0, pTarget = 0, pRaf = 0, pi = -1, pfoTimer;
+const headerH = () => parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--header-h')) || 0;
+const pfoRun = () => pfo.offsetHeight - pfoPin.offsetHeight;
+/* vẽ theo vị trí liên tục c (0 → số mục - 1) */
+function pfoRender(c){
+  const n = PFO.length, base = Math.min(n - 1, Math.floor(c)), f = c - base;
   const row = pfoTitles.children[0].offsetHeight;
-  pfoTitles.style.transform = `translateY(${(1 - n) * row}px)`; // mục đang chọn luôn ở hàng giữa
-  [...pfoTitles.children].forEach((li, i) => li.classList.toggle('on', i === n));
-  [...pfoImgs.children].forEach((im, i) => im.classList.toggle('on', i === n));
-  const btns = [...pfoTabs.children]; btns.forEach((b, i) => b.classList.toggle('on', i === n));
-  const box = pfoTabs.parentElement, b = btns[n]; // tab đang chọn luôn nằm giữa khung
-  pfoTabs.style.transform = `translateX(${box.clientWidth / 2 - b.offsetLeft - b.offsetWidth / 2}px)`;
+  pfoTitles.style.transform = `translate3d(0,${(1 - c) * row}px,0)`;
+  [...pfoTitles.children].forEach((li, i) => {
+    const d = Math.min(1, Math.abs(c - i));
+    li.style.transform = `scale(${1 - .28 * d})`;
+    li.style.color = `rgb(${INK.map((v, k) => Math.round(v + (GREY[k] - v) * d)).join(',')})`;
+  });
+  [...pfoImgs.children].forEach((im, i) => { // ảnh dưới giữ nguyên, ảnh kế hiện dần đè lên
+    let o = 0, sc = 1, z = 0;
+    if (i === base) { o = 1; z = 1; }
+    else if (i === base + 1) { o = f; sc = 1.08 - .08 * f; z = 2; }
+    im.style.opacity = o; im.style.zIndex = z; im.style.transform = `scale(${sc})`;
+  });
+  const btns = [...pfoTabs.children], box = pfoTabs.parentElement;
+  const mid = i => btns[i].offsetLeft + btns[i].offsetWidth / 2;
+  const m = base < n - 1 ? mid(base) + (mid(base + 1) - mid(base)) * f : mid(base);
+  pfoTabs.style.transform = `translate3d(${box.clientWidth / 2 - m}px,0,0)`;
+  const on = Math.round(c);
+  if (on !== pi) { pi = on; btns.forEach((b, i) => b.classList.toggle('on', i === on)); }
 }
-function pfoRun(){ // vị trí cuộn → mục
+/* vị trí cuộn → mục mục tiêu; mỗi đoạn có khoảng dừng ở đầu/cuối để ảnh đứng yên một chút */
+function pfoTarget(){
+  const p = Math.min(1, Math.max(0, (headerH() - pfo.getBoundingClientRect().top) / pfoRun()));
+  const raw = p * (PFO.length - 1), k = Math.floor(raw), fr = raw - k;
+  return Math.min(PFO.length - 1, k + ease(Math.min(1, Math.max(0, (fr - .15) / .7))));
+}
+function pfoTick(){ // bám theo trễ nhẹ như scrub:1 của GSAP
+  pCur += (pTarget - pCur) * .09;
+  if (Math.abs(pTarget - pCur) < .0005) pCur = pTarget;
+  pfoRender(pCur);
+  pRaf = pCur === pTarget ? 0 : requestAnimationFrame(pfoTick);
+}
+function pfoOnScroll(){
   if (pfoMobile.matches) return;
-  const run = pfo.offsetHeight - pfo.querySelector('.pfo-pin').offsetHeight;
-  const p = Math.min(1, Math.max(0, (headerH() - pfo.getBoundingClientRect().top) / run));
-  goPfo(Math.min(PFO.length - 1, Math.floor(p * PFO.length)));
+  pTarget = pfoTarget();
+  if (!pRaf) pRaf = requestAnimationFrame(pfoTick);
 }
-function headerH(){ return parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--header-h')) || 0; }
+/* điện thoại: tự chạy 3 giây/mục */
+function goPfo(n){ pCur = pTarget = (n + PFO.length) % PFO.length; pfoRender(pCur); }
 function pfoLayout(){
   clearInterval(pfoTimer);
+  pfo.classList.toggle('auto', pfoMobile.matches);
   if (pfoMobile.matches) {
     pfo.style.height = '';
-    pfoTimer = setInterval(() => goPfo(pi + 1), 3000);
+    goPfo(Math.round(pCur));
+    pfoTimer = setInterval(() => goPfo(Math.round(pCur) + 1), 3000);
   } else {
-    pfo.style.height = (innerHeight + innerHeight * PFO_STEP * (PFO.length - 1)) + 'px';
-    pfoRun();
+    pfo.style.height = (pfoPin.offsetHeight + innerHeight * PFO_STEP * (PFO.length - 1)) + 'px';
+    pCur = pTarget = pfoTarget(); pfoRender(pCur);
   }
 }
 pfoTabs.addEventListener('click', e => {
   const i = +e.target.dataset.i; if (isNaN(i)) return;
   if (pfoMobile.matches) { goPfo(i); pfoLayout(); return; }
-  const run = pfo.offsetHeight - pfo.querySelector('.pfo-pin').offsetHeight;
-  const top = pfo.getBoundingClientRect().top + scrollY - headerH() + run * (i + .5) / PFO.length;
-  scrollTo({top, behavior:'smooth'});
+  const top = pfo.getBoundingClientRect().top + scrollY - headerH() + pfoRun() * i / (PFO.length - 1);
+  smoothTo(top);
 });
-addEventListener('scroll', pfoRun, {passive:true});
-addEventListener('resize', () => { const n = pi; pi = -1; pfoLayout(); goPfo(n < 0 ? 0 : n); });
-goPfo(0); pfoLayout();
+addEventListener('scroll', pfoOnScroll, {passive:true});
+addEventListener('resize', pfoLayout);
+pfoLayout();
 
 /* ---------- About: chữ từng ký tự + số quay + parallax ---------- */
 const about = document.getElementById('about');
