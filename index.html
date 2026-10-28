@@ -155,7 +155,8 @@
   .orb-wrap.f6{left:80px;top:270px;width:var(--L)}
   .orb-wrap.f4{left:0;top:30px;width:var(--S)}
   .orb-wrap.f5{right:calc(min(560px,100%) + 7% + 70px);top:480px;width:var(--S)}
-  .orb-wrap.small{left:4%;bottom:50px;width:var(--S)}
+  /* DGFCA: cạnh trái-dưới khung SNU, nâng lên khỏi dòng chữ chạy ngang ở đáy */
+  .orb-wrap.small{left:4%;bottom:245px;width:var(--S)}
   .orb-wrap > i{display:block;opacity:0;transform:translateY(80px) scale(.88);transition:opacity 1s ease,transform 1.2s cubic-bezier(.2,.7,.2,1)}
   .orb-wrap.f4 > i{transition-delay:.1s}
   .orb-wrap.big > i{transition-delay:.25s}
@@ -275,6 +276,10 @@
   @media (max-width:1340px){
     :root{--header-h:70px}
     .gnb,.mega{display:none}
+  }
+  @media (max-width:1700px){
+    /* bên trái khung SNU không đủ chỗ → DGFCA lên góc trên-phải cạnh tiêu đề */
+    .orb-wrap.small{left:auto;right:5%;bottom:auto;top:90px}
   }
   @media (max-width:1420px){
     .about{--L:200px;--S:120px}
