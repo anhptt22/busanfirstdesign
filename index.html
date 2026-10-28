@@ -153,19 +153,23 @@
   .orb-wrap.big{right:calc(min(560px,100%) + 7%);top:130px;width:min(300px,24vw)}
   .orb-wrap.small{left:4%;bottom:90px;width:150px}
   .orb-wrap.f3{right:5%;top:90px;width:min(220px,15vw)}
-  .orb-wrap.f4{left:0;top:40px;width:130px}
-  .orb-wrap.f5{right:calc(min(560px,100%) + 7% + 40px);top:490px;width:120px}
+  .orb-wrap.f4{left:0;top:40px;width:170px}
+  /* GIM: dưới-trái khung lớn, cách mép trái khung lớn 80px */
+  .orb-wrap.f5{right:calc(min(560px,100%) + 7% + min(300px,24vw) + 80px);top:600px;width:160px}
+  .orb-wrap.f6{left:60px;top:310px;width:150px}
   .orb-wrap > i{display:block;opacity:0;transform:translateY(80px) scale(.88);transition:opacity 1s ease,transform 1.2s cubic-bezier(.2,.7,.2,1)}
   .orb-wrap.big > i{transition-delay:.3s}
   .orb-wrap.f3 > i{transition-delay:.15s}
   .orb-wrap.f4 > i{transition-delay:.45s}
   .orb-wrap.f5 > i{transition-delay:.6s}
+  .orb-wrap.f6 > i{transition-delay:.75s}
   .about.in .orb-wrap > i{opacity:1;transform:none}
   .frame{display:block;position:relative;aspect-ratio:1;overflow:hidden;border-radius:12%;background:#e9eeea;
     box-shadow:60px 48px 48px rgba(0,0,0,.06);animation:orbFloat 6s ease-in-out infinite}
-  .orb-wrap.small .frame,.orb-wrap.f4 .frame,.orb-wrap.f5 .frame{animation-duration:8s;animation-delay:-2s;box-shadow:30px 24px 30px rgba(0,0,0,.06)}
+  .orb-wrap.small .frame,.orb-wrap.f4 .frame,.orb-wrap.f5 .frame,.orb-wrap.f6 .frame{animation-duration:8s;animation-delay:-2s;box-shadow:30px 24px 30px rgba(0,0,0,.06)}
   .orb-wrap.f3 .frame{animation-duration:7s;animation-delay:-4s}
   .orb-wrap.f5 .frame{animation-delay:-5s}
+  .orb-wrap.f6 .frame{animation-duration:7s;animation-delay:-1s}
   .frame img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
   @keyframes orbFloat{50%{transform:translateY(-18px)}}
   /* chữ lớn chạy ngang ở nền */
@@ -274,11 +278,17 @@
     :root{--header-h:70px}
     .gnb,.mega{display:none}
   }
-  @media (max-width:1180px){
-    .orb-wrap.f4{display:none}
+  @media (max-width:1600px){
+    /* màn hẹp: chỗ dưới-trái không đủ, GIM về ngay dưới khung lớn */
+    .orb-wrap.f5{right:calc(min(560px,100%) + 7% + 30px);top:490px}
+  }
+  @media (max-width:1320px){
+    .orb-wrap.f4,.orb-wrap.f6{display:none}
+  }
+  @media (max-width:1100px){
+    .orb-wrap.f5{display:none}
   }
   @media (max-width:1024px){
-    .orb-wrap.f5{display:none}
     .header .wrap{padding:0 20px}
     .wrap{padding:0 20px}
     section{padding:90px 0}
@@ -292,7 +302,7 @@
   }
   @media (max-width:900px){
     .orb-wrap.big{right:0;top:40px;width:200px}
-    .orb-wrap.small,.orb-wrap.f3,.orb-wrap.f4,.orb-wrap.f5{display:none}
+    .orb-wrap.small,.orb-wrap.f3,.orb-wrap.f4,.orb-wrap.f5,.orb-wrap.f6{display:none}
     .about-stats{margin-top:290px}
   }
   @media (max-width:820px){
@@ -407,7 +417,8 @@
       <div class="about-body">
         <div class="orb-wrap big" data-speed=".12"><i><span class="frame"><img src="img/about-1.jpg" alt="TWOCHUCK 회사소개서"></span></i></div>
         <div class="orb-wrap f4" data-speed="-.05"><i><span class="frame"><img src="img/about-3.jpg" alt="도시 재난안전 관리체계 강화사업 리플렛"></span></i></div>
-        <div class="orb-wrap f5" data-speed=".18"><i><span class="frame"><img src="img/about-4.jpg" alt="GIM COMPANY 리플렛"></span></i></div>
+        <div class="orb-wrap f6" data-speed=".03"><i><span class="frame"><img src="img/about-6.jpg" alt="KB 마이핏 포스터"></span></i></div>
+        <div class="orb-wrap f5" data-speed=".08"><i><span class="frame"><img src="img/about-4.jpg" alt="GIM COMPANY 리플렛"></span></i></div>
         <ul class="about-stats">
           <li><dl><dt>디자인 경력</dt><dd>12년 넘게 쌓아온 실무 노하우</dd></dl><div class="odo" data-num="12" data-sfx="년+"></div></li>
           <li><dl><dt>완료 프로젝트</dt><dd>다양한 업종의 기업과 함께한 결과물</dd></dl><div class="odo" data-num="3,200" data-sfx="+"></div></li>
