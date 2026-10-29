@@ -232,6 +232,24 @@
   .pfo.auto .pfo-tabs-track{transition:transform .4s ease}
   .pfo.auto .pfo-right > img,.pfo.auto .pfo-native{transition:opacity .7s ease,transform 1.4s ease}
 
+  /* ---------- Trusted by (kiểu dfirst: 3 hàng logo chạy ngang, hàng giữa ngược chiều, rê chuột thì dừng) ---------- */
+  .trust{padding:100px 0 110px;background:#fff}
+  .trust-cap{text-align:center;font-size:14px;font-weight:800;letter-spacing:.16em;color:var(--gray);text-transform:uppercase}
+  .trust-sub{margin:14px 0 44px;text-align:center;font-size:clamp(20px,2vw,26px);font-weight:800;letter-spacing:-.02em;word-break:keep-all;padding:0 20px}
+  .trust-sub b{color:var(--primary)}
+  .lm{overflow:hidden;padding:8px 0;-webkit-mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent);mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent)}
+  .lm-track{display:flex;width:max-content;animation:lmScroll 70s linear infinite}
+  .lm-track + .lm-track{margin-top:14px}
+  .lm-track.rev{animation-name:lmScrollRev}
+  .lm:hover .lm-track{animation-play-state:paused}
+  .plogo{flex:0 0 auto;width:158px;height:92px;margin-right:14px;display:grid;place-items:center;padding:16px;border:1px solid var(--line);border-radius:14px;background:#fff;transition:.22s}
+  .plogo img{max-width:100%;max-height:46px;object-fit:contain;filter:grayscale(1);opacity:.6;transition:.22s}
+  .plogo:hover{border-color:var(--primary);box-shadow:0 10px 24px rgba(0,0,0,.08);transform:translateY(-4px)}
+  .plogo:hover img{filter:none;opacity:1}
+  @keyframes lmScroll{to{transform:translateX(-50%)}}
+  @keyframes lmScrollRev{from{transform:translateX(-50%)}to{transform:none}}
+  @media (prefers-reduced-motion:reduce){.lm-track{animation:none}}
+
   /* ---------- Newsroom ---------- */
   .news-list{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
   .news-item{display:flex;flex-direction:column;border-radius:24px;overflow:hidden;background:#fff;border:1px solid var(--line);transition:transform .3s,box-shadow .3s}
@@ -331,6 +349,11 @@
     .pfo-titles li{font-size:26px}
     .pfo-cap{font-size:20px}
     .pfo-tabs{bottom:20px}
+    .trust{padding:70px 0 80px}
+    .trust-sub{margin-bottom:30px}
+    .plogo{width:128px;height:76px;margin-right:10px;padding:12px}
+    .plogo img{max-height:38px}
+    .lm-track + .lm-track{margin-top:10px}
     .pfo-right{flex:none;aspect-ratio:16/11}
     .slide .pic{top:var(--header-h);left:0;right:0;bottom:340px}
     .slide .pic img{transform-origin:center}
@@ -497,6 +520,13 @@
         <a class="pfo-more" href="portfolio.html">전체 포트폴리오 →</a>
       </div>
     </div>
+  </section>
+
+  <!-- Trusted by -->
+  <section class="trust" id="trust">
+    <p class="trust-cap reveal">Trusted by</p>
+    <p class="trust-sub reveal">퍼스트디자인은 <b>대한민국 대표 브랜드</b>와 함께해 왔습니다.</p>
+    <div class="lm" id="lm"></div>
   </section>
 
   <!-- Newsroom -->
@@ -766,6 +796,17 @@ pfoTabs.addEventListener('click', e => {
 addEventListener('scroll', pfoOnScroll, {passive:true});
 addEventListener('resize', pfoLayout);
 pfoLayout();
+
+/* ---------- Trusted by: 3 hàng logo, mỗi hàng nhân đôi để chạy vòng liền mạch ---------- */
+const PARTNERS = [
+  {dur:62, rev:false, logos:[['samsung-logo.jpg','삼성'],['Kookmin-bank.jpg','KB국민은행'],['shinhan-bank.jpg','신한은행'],['hite-jinro.jpg','하이트진로'],['mirae.jpg','미래에셋'],['lotte-DepartmentStore.jpg','롯데백화점'],['cj-enm.png','CJ ENM'],['doosan-logo.jpg','두산'],['korea-clectricpower-logo.jpg','한국전력공사'],['samsung-bio.jpg','삼성바이오에피스'],['dongwon-fb.png','동원F&B']]},
+  {dur:78, rev:true, logos:[['binggrae.png','빙그레'],['seoul-milk.jpg','서울우유'],['goobne-mall.png','굽네몰'],['samchuly.jpg','삼천리자전거'],['nike.jpg','Nike'],['Adidas.png','Adidas'],['apple.png','Apple'],['k-league.jpg','K리그'],['kaist.jpg','KAIST'],['ewha-university.png','이화여자대학교']]},
+  {dur:70, rev:false, logos:[['seoul-university.jpg','서울대학교'],['sejong-university.jpg','세종대학교'],['nationalforensic-logo.jpg','국립과학수사연구원'],['Jeollabuk-do.jpg','전라북도'],['Gwangjin-gu.png','광진구'],['Danyang-gun.png','단양군'],['dsc-logo.jpg','DSC'],['Environmental.png','환경보전협회'],['Health.jpg','보건복지부'],['church.png','여의도순복음교회']]}
+];
+document.getElementById('lm').innerHTML = PARTNERS.map(r => {
+  const one = (f, n, dup) => `<div class="plogo"${dup ? ' aria-hidden="true"' : ''}><img src="img/partners/LOGO_${f}" alt="${dup ? '' : n + ' 로고'}" loading="lazy"></div>`;
+  return `<div class="lm-track${r.rev ? ' rev' : ''}" style="animation-duration:${r.dur}s">${r.logos.map(([f, n]) => one(f, n)).join('')}${r.logos.map(([f, n]) => one(f, n, 1)).join('')}</div>`;
+}).join('');
 
 /* ---------- About: chữ từng ký tự + số quay + parallax ---------- */
 const about = document.getElementById('about');
