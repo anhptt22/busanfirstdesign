@@ -232,6 +232,29 @@
   .pfo.auto .pfo-tabs-track{transition:transform .4s ease}
   .pfo.auto .pfo-right > img,.pfo.auto .pfo-native{transition:opacity .7s ease,transform 1.4s ease}
 
+  /* ---------- How we work (kiểu yorien: thẻ kính mờ; cuộn tới thì ghim, thẻ lần lượt nổi lên rồi hàng thẻ trượt ngang) ---------- */
+  .hw{position:relative;padding:0;
+    background:radial-gradient(120% 80% at 15% 0%,rgba(255,255,255,.75),transparent 55%),radial-gradient(90% 70% at 90% 100%,rgba(31,138,76,.16),transparent 60%),linear-gradient(135deg,#dfe9e3 0%,#c9dad1 45%,#e4ece7 100%)}
+  .hw-pin{position:sticky;top:var(--header-h);height:calc(100vh - var(--header-h));display:flex;flex-direction:column;justify-content:center;overflow:hidden}
+  .hw .wrap{max-width:1680px}
+  .hw-head{text-align:center}
+  .hw-cap{font-size:14px;font-weight:800;letter-spacing:.16em;color:var(--primary)}
+  .hw-title{margin-top:14px;font-size:clamp(30px,3vw,46px);font-weight:800;line-height:1.25;letter-spacing:-.03em}
+  .hw-desc{margin-top:16px;font-size:17px;line-height:1.7;color:#4d5a53}
+  .hw-view{margin-top:48px}
+  .hw-track{display:flex;gap:20px;will-change:transform}
+  .hw-card{flex:0 0 calc((100% - 60px) / 4);display:block;padding:24px 24px 34px;border-radius:20px;background:rgba(255,255,255,.34);border:1px solid rgba(255,255,255,.65);
+    -webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);box-shadow:0 10px 30px rgba(30,60,45,.06);will-change:transform,opacity;transition:background .3s}
+  .hw-card:hover{background:rgba(255,255,255,.55)}
+  .hw-step{display:flex;align-items:center;justify-content:space-between;font-size:16px;font-weight:700}
+  .hw-step i{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.6);display:grid;place-items:center;font-style:normal;font-size:15px;transition:.3s}
+  .hw-card:hover .hw-step i{background:var(--primary);color:#fff;transform:rotate(45deg)}
+  .hw-thumb{margin-top:16px;aspect-ratio:1.9;border-radius:12px;overflow:hidden;background:#e9eeea}
+  .hw-thumb img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+  .hw-card:hover .hw-thumb img{transform:scale(1.05)}
+  .hw-card h3{margin-top:26px;font-size:20px;font-weight:700;letter-spacing:-.02em}
+  .hw-card p{margin-top:12px;font-size:15.5px;line-height:1.65;color:#5d6a63;word-break:keep-all}
+
   /* ---------- Trusted by (kiểu dfirst: 3 hàng logo chạy ngang, hàng giữa ngược chiều, rê chuột thì dừng) ---------- */
   .trust{padding:100px 0 110px;background:#fff}
   .trust-cap{text-align:center;font-size:clamp(17px,1.5vw,22px);font-weight:700;letter-spacing:-.02em;color:var(--gray);word-break:keep-all;padding:0 20px}
@@ -373,6 +396,14 @@
     .need-meta{gap:12px;margin-top:14px}
     .need-progress{display:none}
     .trust{padding:70px 0 80px}
+    .hw-pin{position:static;height:auto;padding:70px 0}
+    .hw-view{margin-top:32px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}
+    .hw-view::-webkit-scrollbar{display:none}
+    .hw-track{padding:0 calc(50% - 140px);gap:14px;width:max-content}
+    .hw-card{flex:0 0 280px;scroll-snap-align:center;padding:20px 20px 26px}
+    .hw-card h3{font-size:18px;margin-top:20px}
+    .hw-card p{font-size:14px}
+    .hw-desc{font-size:15px}
     .trust-sub{margin-bottom:30px}
     .plogo{width:128px;height:76px;margin-right:10px;padding:12px}
     .plogo img{max-height:38px}
@@ -541,6 +572,20 @@
           <div class="pfo-right" id="pfoImgs"></div>
         </div>
         <a class="pfo-more" href="portfolio.html">전체 포트폴리오 →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- How we work -->
+  <section class="hw" id="howwework">
+    <div class="hw-pin">
+      <div class="wrap">
+        <div class="hw-head reveal">
+          <p class="hw-cap">HOW WE WORK</p>
+          <h2 class="hw-title">좋은 결과물은<br>좋은 과정에서 시작됩니다</h2>
+          <p class="hw-desc">프로젝트마다 방식은 달라도, <br>브랜드를 이해하는 과정은 같습니다.</p>
+        </div>
+        <div class="hw-view"><div class="hw-track" id="hwTrack"></div></div>
       </div>
     </div>
   </section>
@@ -848,6 +893,53 @@ if (innerWidth <= 820) { // điện thoại: thẻ thứ 2 nằm giữa lúc đ�
   const c = needScroll.querySelectorAll('.need-card')[1];
   needScroll.scrollLeft = c.offsetLeft - (needScroll.clientWidth - c.offsetWidth) / 2;
 }
+
+/* ---------- How we work: 6 bước; máy tính thì ghim lại, thẻ nổi lên lần lượt rồi trượt ngang theo vị trí cuộn ---------- */
+const HW = [
+  ['Brand','브랜드 이해','브랜드가 지향하는 목표와 고객, 시장 상황을 먼저 살펴보고 디자인이 풀어야 할 과제를 함께 정리합니다.'],
+  ['Consulting','상담 · 진단','담당 디자이너가 직접 상담하며 용도와 일정, 예산에 맞는 제작 방향과 사양을 설계합니다.'],
+  ['Design','디자인 개발','기획 의도를 바탕으로 시안을 제작하고, 브랜드의 메시지가 한눈에 전달되도록 구성합니다.'],
+  ['Feedback','피드백 반영','고객의 의견을 꼼꼼히 반영해 수정하며, 작은 디테일까지 완성도를 높여 갑니다.'],
+  ['Delivery','결과물 완성','자체 인쇄소에서 출력 품질까지 확인하고, 최종 검수를 거쳐 결과물을 전달합니다.'],
+  ['Support','사후 지원','납품 이후에도 재인쇄와 수정, 추가 제작까지 필요한 지원을 이어갑니다.']
+];
+const hw = document.getElementById('howwework'), hwPin = hw.querySelector('.hw-pin'), hwTrack = document.getElementById('hwTrack');
+hwTrack.innerHTML = HW.map(([en, t, d], i) => `<a href="#contact" class="hw-card">
+  <div class="hw-step"><span>STEP 0${i + 1} - ${en}</span><i aria-hidden="true">↗</i></div>
+  <div class="hw-thumb"><img src="img/step-${i + 1}.jpg" alt="${t}" loading="lazy"></div>
+  <h3>${t}</h3><p>${d}</p></a>`).join('');
+const hwCards = [...hwTrack.children], hwMobile = matchMedia('(max-width:820px)');
+let hwCur = 0, hwTarget = 0, hwRaf = 0;
+const clamp01 = v => Math.min(1, Math.max(0, v));
+function hwRender(p){ // p: 0 → 1 trong đoạn ghim
+  const rise = clamp01(p / .5), slide = clamp01((p - .55) / .4);   // 0~50% thẻ nổi lên, 55~95% trượt ngang
+  hwCards.forEach((c, i) => {
+    const t = clamp01(rise * (1 + .2 * (hwCards.length - 1)) - .2 * i); // lệch 0.2 giữa các thẻ như stagger của yorien
+    const e = 1 - Math.pow(1 - t, 2);
+    c.style.opacity = e; c.style.transform = `translate3d(0,${(1 - e) * 100}px,0)`;
+  });
+  const max = Math.max(0, hwTrack.scrollWidth - hwTrack.clientWidth);
+  hwTrack.style.transform = `translate3d(${-max * (slide < .5 ? 2 * slide * slide : 1 - Math.pow(-2 * slide + 2, 2) / 2)}px,0,0)`;
+}
+function hwProgress(){ return clamp01((headerH() - hw.getBoundingClientRect().top) / (hw.offsetHeight - hwPin.offsetHeight)); }
+function hwTick(){
+  hwCur += (hwTarget - hwCur) * .1;
+  if (Math.abs(hwTarget - hwCur) < .0005) hwCur = hwTarget;
+  hwRender(hwCur);
+  hwRaf = hwCur === hwTarget ? 0 : requestAnimationFrame(hwTick);
+}
+function hwLayout(){
+  if (hwMobile.matches) { // điện thoại: không ghim, vuốt ngang
+    hw.style.height = ''; hwTrack.style.transform = '';
+    hwCards.forEach(c => { c.style.opacity = ''; c.style.transform = ''; });
+  } else {
+    hw.style.height = (hwPin.offsetHeight + innerHeight * 1.6) + 'px';
+    hwCur = hwTarget = hwProgress(); hwRender(hwCur);
+  }
+}
+addEventListener('scroll', () => { if (hwMobile.matches) return; hwTarget = hwProgress(); if (!hwRaf) hwRaf = requestAnimationFrame(hwTick); }, {passive:true});
+addEventListener('resize', hwLayout);
+hwLayout();
 
 /* ---------- About: chữ từng ký tự + số quay + parallax ---------- */
 const about = document.getElementById('about');
