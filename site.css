@@ -1,0 +1,39 @@
+/* Phần dùng chung cho mọi trang của busanfirstdesign: footer */
+  /* ---------- Footer (bố cục tonymoly: nền trắng, 3 cột ngăn bằng vạch dọc; nội dung theo incheondesign) ---------- */
+  .footer{background:#fff;color:#555;border-top:1px solid var(--line);font-size:13px}
+  .footer .wrap{display:grid;grid-template-columns:1fr 240px 400px}
+  .ft-col{padding:56px 0 64px}
+  .ft-col + .ft-col{border-left:1px solid var(--line);padding-left:28px}
+  .ft-info{padding-right:40px}
+  .ft-logo{display:flex;align-items:center;gap:10px;font-size:24px;font-weight:800;letter-spacing:-.03em;color:var(--ink)}
+  .ft-logo b{color:var(--primary);font-weight:inherit}
+  .ft-logo span{padding:3px 10px;border:1px solid #d5d5d5;border-radius:20px;font-size:12px;font-weight:700;letter-spacing:0;color:#555}
+  .ft-co{margin-top:34px;font-size:15px;font-weight:700;color:var(--ink)}
+  .ft-addr{margin-top:12px;font-style:normal;line-height:1.95}
+  .ft-addr i{display:inline-block;width:1px;height:10px;margin:0 12px;background:#ccc;vertical-align:-1px}
+  .ft-addr a{color:var(--ink);text-decoration:underline}
+  .ft-copy{margin-top:30px;font-size:12px;letter-spacing:.02em;color:#333}
+  .ft-menu li + li{margin-top:11px}
+  .ft-privacy{margin-right:18px;font-weight:700;color:var(--ink)}
+  .ft-menu a{font-size:14px;color:#333;transition:color .2s}
+  .ft-menu a:hover{color:var(--primary)}
+  .ft-cs h5{font-size:14px;font-weight:700;color:var(--ink)}
+  .ft-tel{display:block;margin-top:6px;font-size:28px;font-weight:800;letter-spacing:-.01em;color:var(--primary)}
+  .ft-time{margin-top:12px;font-size:12.5px;color:#555}
+  .ft-note{margin-top:14px;font-size:12.5px;line-height:1.75;color:#555}
+  .ft-btns{margin-top:26px;display:flex;gap:8px}
+  .ft-btns a{padding:12px 22px;border:1px solid #555;font-size:13px;color:#333;transition:.2s}
+  .ft-btns a:hover{background:var(--primary);border-color:var(--primary);color:#fff}
+  @media (max-width:1024px){
+    .footer .wrap{grid-template-columns:1fr 1fr}
+    .ft-info{grid-column:1 / -1;padding-right:0;padding-bottom:40px;border-bottom:1px solid var(--line)}
+    .ft-col + .ft-col{padding-top:36px}
+    .ft-menu{border-left:0!important;padding-left:0!important}
+  }
+  @media (max-width:640px){
+    .footer .wrap{grid-template-columns:1fr}
+    .ft-col{padding:32px 0}
+    .ft-col + .ft-col{border-left:0;padding-left:0;border-top:1px solid var(--line)}
+    .ft-info{padding-bottom:32px;border-bottom:0}
+    .ft-addr i{display:block;width:0;height:0;margin:0}
+  }

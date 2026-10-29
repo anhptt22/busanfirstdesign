@@ -5,9 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>포트폴리오 | first design</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<link rel="stylesheet" href="site.css">
 <style>
   /* trang tạm: nội dung portfolio sẽ cập nhật sau */
-  :root{--primary:#1f8a4c;--primary-soft:#eaf5ee;--ink:#111;--gray:#767676}
+  :root{--primary:#1f8a4c;--primary-dark:#166b3a;--primary-soft:#eaf5ee;--ink:#111;--gray:#767676;--line:#e5e5e5}
+  ul{list-style:none}
+  .wrap{width:100%;max-width:1400px;margin:0 auto;padding:0 40px}
+  @media (max-width:1024px){.wrap{padding:0 20px}}
   *{box-sizing:border-box;margin:0;padding:0}
   body{font-family:Pretendard,sans-serif;color:var(--ink);background:#fff;-webkit-font-smoothing:antialiased;min-height:100vh;display:flex;flex-direction:column}
   a{color:inherit;text-decoration:none}
@@ -15,11 +19,11 @@
   .header img{height:40px;width:auto}
   .main{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:80px 20px;background:linear-gradient(#fff,var(--primary-soft))}
   .cap{font-size:15px;font-weight:800;color:var(--primary);letter-spacing:.04em}
-  h1{margin-top:14px;font-size:clamp(34px,4vw,56px);font-weight:800;letter-spacing:-1.5px}
-  p{margin-top:18px;font-size:17px;line-height:1.7;color:var(--gray)}
+  .main h1{margin-top:14px;font-size:clamp(34px,4vw,56px);font-weight:800;letter-spacing:-1.5px}
+  .main p{margin-top:18px;font-size:17px;line-height:1.7;color:var(--gray)}
   .back{margin-top:40px;display:inline-flex;align-items:center;gap:8px;padding:14px 26px;border:1.5px solid var(--ink);border-radius:999px;font-size:15px;font-weight:700;transition:.2s}
   .back:hover{background:var(--ink);color:#fff}
-  @media (max-width:640px){.header{height:70px;padding:0 20px}.header img{height:32px}p{font-size:15px}}
+  @media (max-width:640px){.header{height:70px;padding:0 20px}.header img{height:32px}.main p{font-size:15px}}
 </style>
 </head>
 <body>
@@ -30,5 +34,7 @@
     <p>더 많은 작업 사례를 곧 이곳에서 보여드리겠습니다.</p>
     <a class="back" href="index.html">← 메인으로 돌아가기</a>
   </main>
+  <footer class="footer" id="siteFooter"></footer>
+  <script src="site.js"></script>
 </body>
 </html>
