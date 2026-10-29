@@ -251,17 +251,25 @@
   @keyframes lmScrollRev{from{transform:translateX(-50%)}to{transform:none}}
   @media (prefers-reduced-motion:reduce){.lm-track{animation:none}}
 
-  /* ---------- Newsroom ---------- */
-  .news-list{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
-  .news-item{display:flex;flex-direction:column;border-radius:24px;overflow:hidden;background:#fff;border:1px solid var(--line);transition:transform .3s,box-shadow .3s}
-  .news-item:hover{transform:translateY(-8px);box-shadow:0 20px 40px rgba(0,0,0,.08)}
-  .news-item .thumb{aspect-ratio:16/10;background:linear-gradient(135deg,#eee,#d9d9d9);position:relative}
-  .news-item:nth-child(2) .thumb{background:linear-gradient(135deg,#fde2e4,#fad2e1)}
-  .news-item:nth-child(3) .thumb{background:linear-gradient(135deg,#e2ece9,#bee1e6)}
-  .news-item .body{padding:28px 28px 32px;display:flex;flex-direction:column;gap:14px;flex:1}
-  .tag{align-self:flex-start;font-size:13px;font-weight:700;color:var(--primary);border:1px solid var(--primary);border-radius:20px;padding:4px 12px}
-  .news-item h3{font-size:19px;line-height:1.5;font-weight:700;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-  .news-item time{margin-top:auto;font-size:14px;color:var(--gray)}
+  /* ---------- 디자인이 필요할때 (kiểu incheondesign: 3 thẻ kéo ngang + thanh tiến trình) ---------- */
+  .need{padding:160px 0;background:#f6f6f6}
+  .need-label{font-size:24px;font-weight:700;letter-spacing:-.025em;color:var(--primary)}
+  .need-heading{margin-top:20px;font-size:40px;font-weight:700;letter-spacing:-.025em;line-height:1}
+  .need .wrap{margin-bottom:60px}
+  .need-scroll{width:100%;overflow-x:auto;overflow-y:hidden;scrollbar-width:none;cursor:grab;user-select:none}
+  .need-scroll::-webkit-scrollbar{display:none}
+  .need-scroll.drag{cursor:grabbing}
+  .need-track{display:inline-flex;gap:40px;padding:0 max(40px,calc(50% - 660px))}
+  .need-card{display:block;flex:0 0 auto;width:400px}
+  .need-img{height:230px;overflow:hidden;border-radius:7px}
+  .need-img img{width:100%;height:100%;object-fit:cover;transition:transform .3s;-webkit-user-drag:none}
+  .need-card:hover .need-img img{transform:scale(1.05)}
+  .need-meta{display:flex;align-items:flex-start;gap:30px;margin-top:20px}
+  .need-num{flex-shrink:0;font-size:40px;font-weight:700;line-height:1;letter-spacing:-.025em;color:rgba(31,138,76,.2);transform:translateY(10px);transition:color .3s}
+  .need-title{font-size:20px;font-weight:700;line-height:1.5;letter-spacing:-.025em;transition:color .3s;word-break:keep-all}
+  .need-card:hover .need-num,.need-card:hover .need-title{color:var(--primary)}
+  .need-progress{max-width:1320px;height:2px;margin:80px auto 0;background:rgba(31,138,76,.2)}
+  .need-progress i{display:block;width:0;height:100%;background:var(--primary);transition:width .1s ease-out}
 
   /* ---------- Contact ---------- */
   .contact{padding-top:0}
@@ -327,7 +335,9 @@
     .header .wrap{padding:0 20px}
     .wrap{padding:0 20px}
     section{padding:90px 0}
-    .news-list{grid-template-columns:1fr}
+    .need{padding:110px 0}
+    .need-heading{font-size:36px}
+    .need-progress{margin:60px 40px 0}
     .contact-grid{grid-template-columns:1fr}
     .footer .wrap{grid-template-columns:1fr}
     .biz-stage{padding:0 76px}
@@ -350,6 +360,18 @@
     .pfo-titles li{font-size:26px}
     .pfo-cap{font-size:20px}
     .pfo-tabs{bottom:20px}
+    .need{padding:60px 0}
+    .need .wrap{margin-bottom:30px;text-align:center}
+    .need-label{font-size:14px}
+    .need-heading{margin-top:5px;font-size:24px}
+    .need-scroll{scroll-snap-type:x mandatory}
+    .need-track{gap:12px;padding:0 calc(50% - 140px)}
+    .need-card{width:280px;scroll-snap-align:center}
+    .need-img{height:162px}
+    .need-num{font-size:24px}
+    .need-title{font-size:14px}
+    .need-meta{gap:12px;margin-top:14px}
+    .need-progress{display:none}
     .trust{padding:70px 0 80px}
     .trust-sub{margin-bottom:30px}
     .plogo{width:128px;height:76px;margin-right:10px;padding:12px}
@@ -530,22 +552,20 @@
     <div class="lm" id="lm"></div>
   </section>
 
-  <!-- Newsroom -->
-  <section id="newsroom">
-    <div class="wrap">
-      <div class="sec-head reveal">
-        <div>
-          <h2 class="sec-title">Newsroom</h2>
-          <p class="sec-desc">다양한 소식과 업계 트렌드를 만나볼 수 있습니다.</p>
-        </div>
-        <a href="#" class="more">뉴스룸 바로가기 →</a>
-      </div>
-      <div class="news-list">
-        <a href="#" class="news-item reveal"><div class="thumb"></div><div class="body"><span class="tag">보도자료</span><h3>신제품 출시 소식 제목이 들어가는 자리입니다</h3><time>2026.10.21</time></div></a>
-        <a href="#" class="news-item reveal"><div class="thumb"></div><div class="body"><span class="tag">보도자료</span><h3>사회공헌 행사 개최 관련 보도자료 제목 예시</h3><time>2026.10.19</time></div></a>
-        <a href="#" class="news-item reveal"><div class="thumb"></div><div class="body"><span class="tag">보도자료</span><h3>브랜드 캠페인 및 팝업 이벤트 소식 제목 예시 텍스트</h3><time>2026.10.19</time></div></a>
+  <!-- 디자인이 필요할때 -->
+  <section class="need" id="need">
+    <div class="wrap reveal">
+      <p class="need-label">디자인이 필요할때,</p>
+      <h2 class="need-heading">퍼스트디자인 부산·경남지사</h2>
+    </div>
+    <div class="need-scroll" id="needScroll">
+      <div class="need-track">
+        <a href="#contact" class="need-card reveal"><div class="need-img"><img src="img/need-1.jpg" alt="KNU 지식재산 전문인력양성사업단 리플렛" loading="lazy"></div><div class="need-meta"><span class="need-num">01</span><p class="need-title">부산·창원·김해 동남권<br>대면 미팅이 가능합니다</p></div></a>
+        <a href="#contact" class="need-card reveal"><div class="need-img"><img src="img/need-2.jpg" alt="cake Lyn 브랜딩" loading="lazy"></div><div class="need-meta"><span class="need-num">02</span><p class="need-title">디자인부터 인쇄·촬영·패키지까지<br>원스톱으로 진행합니다</p></div></a>
+        <a href="#contact" class="need-card reveal"><div class="need-img"><img src="img/need-3.jpg" alt="가공 사례 카탈로그" loading="lazy"></div><div class="need-meta"><span class="need-num">03</span><p class="need-title">12년 제작 노하우를<br>부산·경남에서 만나보세요</p></div></a>
       </div>
     </div>
+    <div class="need-progress"><i id="needBar"></i></div>
   </section>
 
   <!-- Contact -->
@@ -809,6 +829,26 @@ document.getElementById('lm').innerHTML = PARTNERS.map(r => {
   return `<div class="lm-track${r.rev ? ' rev' : ''}" style="animation-duration:${r.dur}s">${r.logos.map(([f, n]) => one(f, n)).join('')}${r.logos.map(([f, n]) => one(f, n, 1)).join('')}</div>`;
 }).join('');
 
+/* ---------- 디자인이 필요할때: kéo ngang bằng chuột + thanh tiến trình ---------- */
+const needScroll = document.getElementById('needScroll'), needBar = document.getElementById('needBar');
+needScroll.addEventListener('scroll', () => {
+  const max = needScroll.scrollWidth - needScroll.clientWidth;
+  needBar.style.width = (max > 0 ? needScroll.scrollLeft / max * 100 : 0) + '%';
+}, {passive:true});
+let needDrag = null;
+needScroll.addEventListener('mousedown', e => { needDrag = {x:e.pageX, left:needScroll.scrollLeft, moved:false}; needScroll.classList.add('drag'); });
+addEventListener('mousemove', e => {
+  if (!needDrag) return;
+  const dx = e.pageX - needDrag.x; if (Math.abs(dx) > 4) needDrag.moved = true;
+  needScroll.scrollLeft = needDrag.left - dx;
+});
+addEventListener('mouseup', () => { needScroll.classList.remove('drag'); setTimeout(() => needDrag = null); });
+needScroll.addEventListener('click', e => { if (needDrag && needDrag.moved) e.preventDefault(); }, true); // kéo xong thì không tính là bấm
+if (innerWidth <= 820) { // điện thoại: thẻ thứ 2 nằm giữa lúc đầu
+  const c = needScroll.querySelectorAll('.need-card')[1];
+  needScroll.scrollLeft = c.offsetLeft - (needScroll.clientWidth - c.offsetWidth) / 2;
+}
+
 /* ---------- About: chữ từng ký tự + số quay + parallax ---------- */
 const about = document.getElementById('about');
 document.querySelectorAll('.split').forEach(el => {
@@ -864,7 +904,7 @@ const io = new IntersectionObserver(entries => entries.forEach(en => {
   if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); }
 }), {threshold:.15});
 document.querySelectorAll('.reveal').forEach((el, i) => {
-  el.style.transitionDelay = (el.parentElement.classList.contains('news-list') || el.parentElement.classList.contains('contact-grid'))
+  el.style.transitionDelay = (el.parentElement.classList.contains('need-track') || el.parentElement.classList.contains('contact-grid'))
     ? `${[...el.parentElement.children].indexOf(el) * .12}s` : '0s';
   io.observe(el);
 });
