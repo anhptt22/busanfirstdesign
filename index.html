@@ -494,7 +494,7 @@
           </div>
           <div class="pfo-right" id="pfoImgs"></div>
         </div>
-        <a class="pfo-more" href="https://dfirst.co.kr/portfolio.html" target="_blank" rel="noopener">전체 포트폴리오 →</a>
+        <a class="pfo-more" href="portfolio.html">전체 포트폴리오 →</a>
       </div>
     </div>
   </section>
@@ -587,15 +587,17 @@ const MENU = [
   ['홈페이지 · 웹',[]],
   ['촬영 · 스튜디오',[]],
   ['마케팅 · 광고',[]],
-  ['포트폴리오',[]],
+  ['포트폴리오',[],'portfolio.html'],
   ['블로그',[]]
 ];
 const header = document.getElementById('header');
-document.getElementById('gnb').innerHTML = MENU.map(([t]) => `<li><a href="#">${t}</a></li>`).join('');
-document.getElementById('megaInner').innerHTML = MENU.map(([t,items]) =>
-  `<div class="mega-col"><h4>${t}</h4><ul>${items.map(i=>`<li><a href="#">${i}</a></li>`).join('')}</ul></div>`).join('');
-document.getElementById('sitemapGrid').innerHTML = MENU.map(([t,items]) =>
-  `<div class="card"><h4>${t}</h4><ul>${items.map(i=>`<li><a href="#">${i}</a></li>`).join('')}</ul></div>`).join('');
+// mục thứ 3 (nếu có) là đường dẫn trang riêng của mục đó
+const menuHead = (t, href) => href ? `<a href="${href}">${t}</a>` : t;
+document.getElementById('gnb').innerHTML = MENU.map(([t,,href]) => `<li><a href="${href || '#'}">${t}</a></li>`).join('');
+document.getElementById('megaInner').innerHTML = MENU.map(([t,items,href]) =>
+  `<div class="mega-col"><h4>${menuHead(t, href)}</h4><ul>${items.map(i=>`<li><a href="#">${i}</a></li>`).join('')}</ul></div>`).join('');
+document.getElementById('sitemapGrid').innerHTML = MENU.map(([t,items,href]) =>
+  `<div class="card"><h4>${menuHead(t, href)}</h4><ul>${items.map(i=>`<li><a href="#">${i}</a></li>`).join('')}</ul></div>`).join('');
 
 const gnb = document.getElementById('gnb');
 gnb.addEventListener('mouseenter', () => header.classList.add('menu-open'));
