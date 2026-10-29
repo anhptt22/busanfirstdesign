@@ -235,15 +235,14 @@
   /* ---------- How we work (kiểu yorien: thẻ kính mờ; cuộn tới thì ghim, thẻ lần lượt nổi lên rồi hàng thẻ trượt ngang) ---------- */
   .hw{position:relative;padding:0;
     background:radial-gradient(120% 80% at 15% 0%,rgba(255,255,255,.75),transparent 55%),radial-gradient(90% 70% at 90% 100%,rgba(31,138,76,.16),transparent 60%),linear-gradient(135deg,#dfe9e3 0%,#c9dad1 45%,#e4ece7 100%)}
-  .hw-pin{position:sticky;top:var(--header-h);height:calc(100vh - var(--header-h));display:flex;flex-direction:column;justify-content:center;overflow:hidden}
-  .hw .wrap{max-width:1680px}
+  .hw-in{padding:140px 0 150px}
   .hw-head{text-align:center}
   .hw-cap{font-size:14px;font-weight:800;letter-spacing:.16em;color:var(--primary)}
   .hw-title{margin-top:14px;font-size:clamp(30px,3vw,46px);font-weight:800;line-height:1.25;letter-spacing:-.03em}
   .hw-desc{margin-top:16px;font-size:17px;line-height:1.7;color:#4d5a53}
-  .hw-view{margin-top:48px}
-  .hw-track{display:flex;gap:20px;will-change:transform}
-  .hw-card{flex:0 0 calc((100% - 60px) / 4);display:block;padding:24px 24px 34px;border-radius:20px;background:rgba(255,255,255,.34);border:1px solid rgba(255,255,255,.65);
+  /* 2 hàng × 3 thẻ */
+  .hw-grid{position:relative;margin-top:56px;display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+  .hw-card{display:block;padding:24px 24px 34px;border-radius:20px;background:rgba(255,255,255,.34);border:1px solid rgba(255,255,255,.65);
     -webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);box-shadow:0 10px 30px rgba(30,60,45,.06);will-change:transform,opacity;transition:background .3s}
   .hw-card:hover{background:rgba(255,255,255,.55)}
   .hw-step{display:flex;align-items:center;justify-content:space-between;font-size:16px;font-weight:700}
@@ -396,11 +395,9 @@
     .need-meta{gap:12px;margin-top:14px}
     .need-progress{display:none}
     .trust{padding:70px 0 80px}
-    .hw-pin{position:static;height:auto;padding:70px 0}
-    .hw-view{margin-top:32px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}
-    .hw-view::-webkit-scrollbar{display:none}
-    .hw-track{padding:0 calc(50% - 140px);gap:14px;width:max-content}
-    .hw-card{flex:0 0 280px;scroll-snap-align:center;padding:20px 20px 26px}
+    .hw-in{padding:70px 0 80px}
+    .hw-grid{grid-template-columns:1fr;gap:16px;margin-top:32px}
+    .hw-card{padding:20px 20px 26px}
     .hw-card h3{font-size:18px;margin-top:20px}
     .hw-card p{font-size:14px}
     .hw-desc{font-size:15px}
@@ -578,14 +575,14 @@
 
   <!-- How we work -->
   <section class="hw" id="howwework">
-    <div class="hw-pin">
+    <div class="hw-in">
       <div class="wrap">
         <div class="hw-head reveal">
           <p class="hw-cap">HOW WE WORK</p>
           <h2 class="hw-title">좋은 결과물은<br>좋은 과정에서 시작됩니다</h2>
           <p class="hw-desc">프로젝트마다 방식은 달라도, <br>브랜드를 이해하는 과정은 같습니다.</p>
         </div>
-        <div class="hw-view"><div class="hw-track" id="hwTrack"></div></div>
+        <div class="hw-grid" id="hwTrack"></div>
       </div>
     </div>
   </section>
@@ -903,43 +900,34 @@ const HW = [
   ['Delivery','결과물 완성','자체 인쇄소에서 출력 품질까지 확인하고, 최종 검수를 거쳐 결과물을 전달합니다.'],
   ['Support','사후 지원','납품 이후에도 재인쇄와 수정, 추가 제작까지 필요한 지원을 이어갑니다.']
 ];
-const hw = document.getElementById('howwework'), hwPin = hw.querySelector('.hw-pin'), hwTrack = document.getElementById('hwTrack');
+const hw = document.getElementById('howwework'), hwTrack = document.getElementById('hwTrack');
 hwTrack.innerHTML = HW.map(([en, t, d], i) => `<a href="#contact" class="hw-card">
   <div class="hw-step"><span>STEP 0${i + 1} - ${en}</span><i aria-hidden="true">↗</i></div>
   <div class="hw-thumb"><img src="img/step-${i + 1}.jpg" alt="${t}" loading="lazy"></div>
   <h3>${t}</h3><p>${d}</p></a>`).join('');
-const hwCards = [...hwTrack.children], hwMobile = matchMedia('(max-width:820px)');
-let hwCur = 0, hwTarget = 0, hwRaf = 0;
+/* mỗi thẻ nổi lên theo vị trí cuộn (bám trễ nhẹ như scrub), thẻ cùng hàng lệch nhau 0.2 như stagger của yorien */
+const hwCards = [...hwTrack.children];
 const clamp01 = v => Math.min(1, Math.max(0, v));
-function hwRender(p){ // p: 0 → 1 trong đoạn ghim
-  const rise = clamp01(p / .5), slide = clamp01((p - .55) / .4);   // 0~50% thẻ nổi lên, 55~95% trượt ngang
+let hwCur = hwCards.map(() => 0), hwRaf = 0;
+function hwTargets(){
+  const top = hwTrack.getBoundingClientRect().top, cols = getComputedStyle(hwTrack).gridTemplateColumns.split(' ').length;
+  return hwCards.map((c, i) => clamp01((innerHeight * .95 - (top + c.offsetTop)) / (innerHeight * .4) - .2 * (i % cols)) );
+}
+function hwRender(){
   hwCards.forEach((c, i) => {
-    const t = clamp01(rise * (1 + .2 * (hwCards.length - 1)) - .2 * i); // lệch 0.2 giữa các thẻ như stagger của yorien
-    const e = 1 - Math.pow(1 - t, 2);
+    const e = 1 - Math.pow(1 - hwCur[i], 2);
     c.style.opacity = e; c.style.transform = `translate3d(0,${(1 - e) * 100}px,0)`;
   });
-  const max = Math.max(0, hwTrack.scrollWidth - hwTrack.clientWidth);
-  hwTrack.style.transform = `translate3d(${-max * (slide < .5 ? 2 * slide * slide : 1 - Math.pow(-2 * slide + 2, 2) / 2)}px,0,0)`;
 }
-function hwProgress(){ return clamp01((headerH() - hw.getBoundingClientRect().top) / (hw.offsetHeight - hwPin.offsetHeight)); }
 function hwTick(){
-  hwCur += (hwTarget - hwCur) * .1;
-  if (Math.abs(hwTarget - hwCur) < .0005) hwCur = hwTarget;
-  hwRender(hwCur);
-  hwRaf = hwCur === hwTarget ? 0 : requestAnimationFrame(hwTick);
+  const tg = hwTargets(); let moving = false;
+  hwCur = hwCur.map((v, i) => { const n = v + (tg[i] - v) * .1; if (Math.abs(tg[i] - n) < .001) return tg[i]; moving = true; return n; });
+  hwRender();
+  hwRaf = moving ? requestAnimationFrame(hwTick) : 0;
 }
-function hwLayout(){
-  if (hwMobile.matches) { // điện thoại: không ghim, vuốt ngang
-    hw.style.height = ''; hwTrack.style.transform = '';
-    hwCards.forEach(c => { c.style.opacity = ''; c.style.transform = ''; });
-  } else {
-    hw.style.height = (hwPin.offsetHeight + innerHeight * 1.6) + 'px';
-    hwCur = hwTarget = hwProgress(); hwRender(hwCur);
-  }
-}
-addEventListener('scroll', () => { if (hwMobile.matches) return; hwTarget = hwProgress(); if (!hwRaf) hwRaf = requestAnimationFrame(hwTick); }, {passive:true});
-addEventListener('resize', hwLayout);
-hwLayout();
+addEventListener('scroll', () => { if (!hwRaf) hwRaf = requestAnimationFrame(hwTick); }, {passive:true});
+addEventListener('resize', () => { hwCur = hwTargets(); hwRender(); });
+hwCur = hwTargets(); hwRender();
 
 /* ---------- About: chữ từng ký tự + số quay + parallax ---------- */
 const about = document.getElementById('about');
