@@ -310,6 +310,32 @@
   .faq-a .w{display:flex;margin-top:10px;padding:24px 50px;border-radius:20px;background:#fff;border:1px solid #dcdcdc}
   .faq-a p{font-size:19px;line-height:1.8;color:#333;word-break:keep-all}
 
+  /* ---------- Form tư vấn (bố cục theo dfirst, nền xanh của trang) ---------- */
+  .ask{padding:110px 0;color:#fff;background:radial-gradient(70% 90% at 0% 0%,rgba(255,255,255,.08),transparent 60%),linear-gradient(135deg,var(--primary-dark) 0%,var(--primary) 100%)}
+  .ask-in{display:grid;grid-template-columns:1fr minmax(0,484px);gap:60px;align-items:center;max-width:1100px;margin:0 auto}
+  .ask-cap{font-size:14px;font-weight:800;letter-spacing:.16em;color:#bfeacd}
+  .ask-title{margin-top:16px;font-size:clamp(30px,2.8vw,40px);font-weight:800;line-height:1.3;letter-spacing:-.03em;word-break:keep-all}
+  .ask-desc{margin-top:20px;font-size:16px;line-height:1.75;color:rgba(255,255,255,.85);word-break:keep-all}
+  .ask-tel{margin-top:30px;font-size:15px}
+  .ask-tel b{font-size:24px;font-weight:800;color:#d6f5e0;margin-left:4px;vertical-align:-2px}
+  .ask-tel small{display:block;margin-top:6px;font-size:14px;color:rgba(255,255,255,.75)}
+  .ask-form{background:#fff;color:var(--ink);border-radius:20px;padding:34px;display:grid;grid-template-columns:1fr 1fr;gap:16px 12px;box-shadow:0 30px 60px rgba(0,40,20,.25)}
+  .ask-form .full{grid-column:1 / -1}
+  .ask-form label{display:block;font-size:13px;font-weight:700;margin-bottom:8px}
+  .ask-form label em{font-style:normal;color:#e5484d}
+  .ask-form input[type=text],.ask-form input[type=tel],.ask-form input[type=email],.ask-form select,.ask-form textarea{width:100%;padding:12px 14px;border:1px solid #e6e8e1;border-radius:10px;font:inherit;font-size:14px;background:#fff;color:var(--ink);transition:border-color .2s}
+  .ask-form textarea{min-height:68px;resize:vertical}
+  .ask-form :is(input,select,textarea):focus{outline:none;border-color:var(--primary)}
+  .ask-radios{display:grid;grid-template-columns:1fr 1fr;gap:10px 12px;font-size:14px}
+  .ask-radios label,.ask-agree{display:flex;align-items:center;gap:8px;font-weight:500;margin:0;cursor:pointer}
+  .ask-radios input,.ask-agree input{width:16px;height:16px;accent-color:var(--primary);flex:none}
+  .ask-etc{display:none;margin-top:10px}
+  .ask-etc.on{display:block}
+  .ask-agree{font-size:12.5px;color:#555}
+  .ask-submit{grid-column:1 / -1;height:46px;border-radius:999px;background:var(--primary);color:#fff;font-size:15px;font-weight:700;transition:.2s}
+  .ask-submit:hover{background:var(--primary-dark);transform:translateY(-2px)}
+  .ask-msg{grid-column:1 / -1;font-size:13px;text-align:center;color:var(--primary)}
+
   /* ---------- Footer ---------- */
   .footer{background:var(--footer);color:#aaa;padding:70px 0 60px;font-size:14px}
   .footer .wrap{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:40px}
@@ -365,6 +391,8 @@
     .need-heading{font-size:36px}
     .need-progress{margin:60px 40px 0}
     .faq{padding:30px 0 100px}
+    .ask-in{grid-template-columns:1fr;gap:40px;max-width:560px}
+    .ask-head{text-align:center}
     .footer .wrap{grid-template-columns:1fr}
     .biz-stage{padding:0 76px}
     #business .wrap{padding:0 76px}
@@ -423,6 +451,8 @@
     .hero-text p br{display:none}
     .sec-head{flex-direction:column;align-items:flex-start}
     .faq{padding:20px 0 70px}
+    .ask{padding:70px 0}
+    .ask-form{grid-template-columns:1fr;padding:24px 20px}
     .faq-head{margin-bottom:30px}
     .faq-cap{font-size:15px}
     .faq-q{min-height:64px;padding:16px 22px;border-radius:32px}
@@ -631,6 +661,43 @@
         <li class="faq-item reveal"><button type="button" class="faq-q" aria-expanded="false"><i>Q</i><strong>제품 사진이 없는데 촬영부터 맡길 수 있나요?</strong></button><div class="faq-a"><div class="w"><i>A</i><p>가능합니다. 자체 스튜디오에서 제품·모델·푸드 촬영과 영상 제작을 진행하며, 제품을 택배로 보내주셔도 촬영 후 반송해 드립니다. 촬영한 사진은 상세페이지·카탈로그·홈페이지에 함께 활용됩니다.</p></div></div></li>
         <li class="faq-item reveal"><button type="button" class="faq-q" aria-expanded="false"><i>Q</i><strong>정부지원사업(바우처)으로도 진행할 수 있나요?</strong></button><div class="faq-a"><div class="w"><i>A</i><p>네. 수출바우처, 제조중소기업 혁신바우처, 소상공인 지원사업 등의 수행이 가능합니다. 사업 신청용 제안서 제공과 증빙서류 발급을 지원해 드리며, 자세한 내용은 상담 시 안내해 드립니다.</p></div></div></li>
       </ul>
+    </div>
+  </section>
+  <!-- Form tư vấn -->
+  <section class="ask" id="ask">
+    <div class="wrap">
+      <div class="ask-in">
+        <div class="ask-head reveal">
+          <p class="ask-cap">CONTACT US</p>
+          <h2 class="ask-title">아이디어만 있어도 괜찮습니다<br>방향은 함께 잡아드릴게요</h2>
+          <p class="ask-desc">만들고 싶은 제작물과 일정만 알려주세요. <br>부산·경남 담당 디자이너가 확인 후 연락드립니다.</p>
+          <p class="ask-tel">빠른 상담 <b>1600-9487</b><small>평일 09:00–18:00</small></p>
+        </div>
+        <form class="ask-form reveal" id="askForm" novalidate>
+          <div><label for="askCompany">회사/브랜드명</label><input type="text" id="askCompany" name="company" placeholder="브랜드명" required></div>
+          <div><label for="askName">담당자명</label><input type="text" id="askName" name="name" placeholder="홍길동" required></div>
+          <div><label for="askPhone">연락처</label><input type="tel" id="askPhone" name="phone" placeholder="010-0000-0000" required></div>
+          <div><label for="askEmail">이메일</label><input type="email" id="askEmail" name="email" placeholder="name@email.com"></div>
+          <div class="full"><label for="askField">의뢰 분야</label>
+            <select id="askField" name="field" required><option value="">선택해주세요</option><option>로고 · 브랜딩</option><option>카탈로그 · 브로슈어</option><option>팜플렛 · 리플렛</option><option>포스터</option><option>제품 촬영</option><option>마케팅</option></select></div>
+          <div class="full"><label for="askMsg">프로젝트 내용 (선택)</label><textarea id="askMsg" name="message" placeholder="일정, 예산, 참고 자료 등을 자유롭게 적어주세요."></textarea></div>
+          <div class="full"><label>어떤 경로로 퍼스트디자인을 찾아주셨나요? <em>(필수)</em></label>
+            <div class="ask-radios">
+              <label><input type="radio" name="source" value="네이버 블로그" required>네이버 블로그</label>
+              <label><input type="radio" name="source" value="네이버 카페">네이버 카페</label>
+              <label><input type="radio" name="source" value="언론(보도기사)">언론(보도기사)</label>
+              <label><input type="radio" name="source" value="인스타그램">인스타그램</label>
+              <label><input type="radio" name="source" value="AI 추천">AI 추천</label>
+              <label><input type="radio" name="source" value="티스토리">티스토리</label>
+              <label><input type="radio" name="source" value="기타">기타</label>
+            </div>
+            <input type="text" class="ask-etc" name="sourceEtc" placeholder="어떻게 찾으셨는지 간단히 적어주세요">
+          </div>
+          <label class="ask-agree full"><input type="checkbox" name="agree" required>개인정보 수집·이용에 동의합니다. (견적 회신 목적, 보관 후 파기)</label>
+          <button type="submit" class="ask-submit">견적 요청하기</button>
+          <p class="ask-msg" id="askMsgOut" aria-live="polite"></p>
+        </form>
+      </div>
     </div>
   </section>
 </main>
@@ -950,6 +1017,22 @@ faqItems.forEach(li => {
   li.querySelector('.faq-a').addEventListener('transitionend', e => { // mở xong thì để chiều cao tự do (co giãn theo màn hình)
     if (li.classList.contains('on')) e.currentTarget.style.height = 'auto';
   });
+});
+
+/* ---------- Form tư vấn: kiểm tra trường bắt buộc rồi mở thư soạn sẵn (chưa có máy chủ nhận form) ---------- */
+const askForm = document.getElementById('askForm'), askOut = document.getElementById('askMsgOut');
+const ASK_TO = 'work@firstmkt.co.kr';
+askForm.addEventListener('change', e => {
+  if (e.target.name === 'source') askForm.querySelector('.ask-etc').classList.toggle('on', e.target.value === '기타');
+});
+askForm.addEventListener('submit', e => {
+  e.preventDefault();
+  const bad = [...askForm.querySelectorAll('[required]')].find(el => el.type === 'radio' ? !askForm.querySelector(`[name="${el.name}"]:checked`) : el.type === 'checkbox' ? !el.checked : !el.value.trim());
+  if (bad) { askOut.style.color = '#e5484d'; askOut.textContent = '필수 항목을 모두 입력하고 개인정보 수집에 동의해주세요.'; (bad.type === 'radio' ? bad : bad).focus(); return; }
+  const d = new FormData(askForm), src = d.get('source') === '기타' && d.get('sourceEtc') ? `기타 (${d.get('sourceEtc')})` : d.get('source');
+  const body = [`회사/브랜드명: ${d.get('company')}`, `담당자명: ${d.get('name')}`, `연락처: ${d.get('phone')}`, `이메일: ${d.get('email') || '-'}`, `의뢰 분야: ${d.get('field')}`, `유입 경로: ${src}`, '', `프로젝트 내용:`, d.get('message') || '-'].join(String.fromCharCode(10));
+  location.href = `mailto:${ASK_TO}?subject=${encodeURIComponent(`[부산·경남 견적 요청] ${d.get('company')} / ${d.get('field')}`)}&body=${encodeURIComponent(body)}`;
+  askOut.style.color = ''; askOut.textContent = '메일 앱이 열리면 내용을 확인한 뒤 전송해주세요.';
 });
 
 /* ---------- About: chữ từng ký tự + số quay + parallax ---------- */
