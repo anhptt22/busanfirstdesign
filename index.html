@@ -350,9 +350,9 @@
   .ft-addr i{display:inline-block;width:1px;height:10px;margin:0 12px;background:#ccc;vertical-align:-1px}
   .ft-addr a{color:var(--ink);text-decoration:underline}
   .ft-copy{margin-top:30px;font-size:12px;letter-spacing:.02em;color:#333}
-  .ft-menu li + li{margin-top:12px}
+  .ft-menu li + li{margin-top:11px}
+  .ft-privacy{margin-right:18px;font-weight:700;color:var(--ink)}
   .ft-menu a{font-size:14px;color:#333;transition:color .2s}
-  .ft-menu a:hover,.ft-menu a.b{color:var(--ink);font-weight:700}
   .ft-menu a:hover{color:var(--primary)}
   .ft-cs h5{font-size:14px;font-weight:700;color:var(--ink)}
   .ft-tel{display:block;margin-top:6px;font-size:28px;font-weight:800;letter-spacing:-.01em;color:var(--primary)}
@@ -729,16 +729,9 @@
         상호 : 퍼스트디자인 부산·경남지사(㈜퍼스트마케팅컴퍼니)<i></i>대표자 : 김우석<i></i>사업자 번호 : 884-88-01123<br>
         소재지 : 주소를 입력하세요<i></i>이메일 : <a href="mailto:work@firstmkt.co.kr">work@firstmkt.co.kr</a>
       </address>
-      <p class="ft-copy">ⓒ FIRST DESIGN. ALL RIGHTS RESERVED</p>
+      <p class="ft-copy"><a href="#" class="ft-privacy">개인정보처리방침</a>ⓒ FIRST DESIGN. ALL RIGHTS RESERVED</p>
     </div>
-    <ul class="ft-col ft-menu">
-      <li><a href="#about">회사소개</a></li>
-      <li><a href="portfolio.html">포트폴리오</a></li>
-      <li><a href="#howwework">작업 과정</a></li>
-      <li><a href="#contact">자주하는 질문</a></li>
-      <li><a href="#ask">견적 문의</a></li>
-      <li><a href="#" class="b">개인정보처리방침</a></li>
-    </ul>
+    <ul class="ft-col ft-menu" id="ftMenu"></ul>
     <div class="ft-col ft-cs">
       <h5>전화 상담</h5>
       <a class="ft-tel" href="tel:1600-9487">1600-9487</a>
@@ -782,6 +775,7 @@ const menuHead = (t, href) => href ? `<a href="${href}">${t}</a>` : t;
 document.getElementById('gnb').innerHTML = MENU.map(([t,,href]) => `<li><a href="${href || '#'}">${t}</a></li>`).join('');
 document.getElementById('megaInner').innerHTML = MENU.map(([t,items,href]) =>
   `<div class="mega-col"><h4>${menuHead(t, href)}</h4><ul>${items.map(i=>`<li><a href="#">${i}</a></li>`).join('')}</ul></div>`).join('');
+document.getElementById('ftMenu').innerHTML = MENU.map(([t,,href]) => `<li><a href="${href || '#'}">${t}</a></li>`).join('');
 document.getElementById('sitemapGrid').innerHTML = MENU.map(([t,items,href]) =>
   `<div class="card"><h4>${menuHead(t, href)}</h4><ul>${items.map(i=>`<li><a href="#">${i}</a></li>`).join('')}</ul></div>`).join('');
 
